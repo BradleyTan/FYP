@@ -11,7 +11,7 @@ Password: password
 USER LOGIN:
 
 Username: darkseid@gmail.com
-Password: freeprojectscodes.com
+Password: darkseid
 
 DON'T FORGET TO CREATE A DATABASE NAMING "ecomm" AND IMPORT THE SQL FILE TO RUN.
 WITHOUT THE DATABASE THE PROJECT WON'T RUN.
