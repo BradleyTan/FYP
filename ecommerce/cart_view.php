@@ -4,7 +4,12 @@
 <div class="wrapper">
 
 	<?php include 'includes/navbar.php'; ?>
-	 
+	<?php
+	session_start();
+	if(isset($_SESSION['cart_items'])) {
+    	unset($_SESSION['cart_items']);
+	}
+	?>	 
 	  <div class="content-wrapper">
 	    <div class="container">
 
@@ -49,9 +54,9 @@
 						}
 						else{
 						
-							$quantity=$_POST['quantity'];
+							$qty=$_POST['quantity'];
 							$pdd=$_SESSION['pid'];
-							$value=array_combine($pdd,$quantity);
+							$value=array_combine($pdd,$qty);
 						
 						
 								foreach($value as $qty=> $val34){
@@ -62,7 +67,37 @@
 						header('location:payment-method.php');
 						}
 						}
-						}						
+
+						$user_id = $_SESSION['user_id']; //Retrieve the user ID from the session
+
+						$sql = "SELECT * FROM orders WHERE user_id='$user_id'";
+						$result = mysqli_query($conn, $sql);
+						
+						if(mysqli_num_rows($result) > 0) {
+						//Delete the orders with the same user ID
+						$sql = "DELETE FROM orders WHERE user_id='$user_id'";
+						mysqli_query($conn, $sql);
+						}
+						
+						$sql = "SELECT * FROM orders WHERE order_id='$order_id'";
+						$result = mysqli_query($conn, $sql);
+						
+						while($row = mysqli_fetch_assoc($result)) {	
+							// Process order...
+							if($order_successful) {
+    							// code to process the order
+
+    							// start a session and unset "cart_items" if it exists
+    							session_start();
+
+    							if(isset($_SESSION['cart_items'])) {
+        							unset($_SESSION['cart_items']);
+    							}
+							}
+						}
+
+						
+					}						
 	        		?>
 	        	</div>
 	        	<div class="col-sm-3">
@@ -176,47 +211,6 @@ function getTotal(){
 		}
 	});
 }
-</script>
-<!-- Paypal Express -->
-<script>
-paypal.Button.render({
-    env: 'sandbox', // change for production if app is live,
-
-	client: {
-        sandbox:    'ASb1ZbVxG5ZFzCWLdYLi_d1-k5rmSjvBZhxP2etCxBKXaJHxPba13JJD_D3dTNriRbAv3Kp_72cgDvaZ',
-        //production: 'AaBHKJFEej4V6yaArjzSx9cuf-UYesQYKqynQVCdBlKuZKawDDzFyuQdidPOBSGEhWaNQnnvfzuFB9SM'
-    },
-
-    commit: true, // Show a 'Pay Now' button
-
-    style: {
-    	color: 'gold',
-    	size: 'small'
-    },
-
-    payment: function(data, actions) {
-        return actions.payment.create({
-            payment: {
-                transactions: [
-                    {
-                    	//total purchase
-                        amount: { 
-                        	total: total, 
-                        	currency: 'USD' 
-                        }
-                    }
-                ]
-            }
-        });
-    },
-
-    onAuthorize: function(data, actions) {
-        return actions.payment.execute().then(function(payment) {
-			window.location = 'sales.php?pay='+payment.id;
-        });
-    },
-
-}, '#paypal-button');
 </script>
 </body>
 </html>
