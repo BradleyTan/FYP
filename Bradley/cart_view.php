@@ -1,3 +1,4 @@
+//This is the original version//
 <?php include 'includes/session.php'; ?>
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition skin-blue layout-top-nav">
@@ -31,38 +32,15 @@
 	        		</div>
 	        		<?php
 	        			if(isset($_SESSION['user'])){
-							echo '<div><button type="submit" name="ordersubmit">PROCEED TO CHECKOUT</button></div>';
-						}
-						
+	        				echo "
+	        					<div id='paypal-button'></div>
+	        				";
+	        			}
 	        			else{
 	        				echo "
 	        					<h4>You need to <a href='login.php'>Login</a> to checkout.</h4>
 	        				";
 	        			}
-
-						if(isset($_POST['ordersubmit'])) 
-						{
-							
-						if(strlen($_SESSION['login'])==0)
-							{   
-						header('location:login.php');
-						}
-						else{
-						
-							$quantity=$_POST['quantity'];
-							$pdd=$_SESSION['pid'];
-							$value=array_combine($pdd,$quantity);
-						
-						
-								foreach($value as $qty=> $val34){
-						
-						
-						
-						mysqli_query($con,"insert into orders(userId,productId,quantity) values('".$_SESSION['id']."','$qty','$val34')");
-						header('location:payment-method.php');
-						}
-						}
-						}						
 	        		?>
 	        	</div>
 	        	<div class="col-sm-3">
