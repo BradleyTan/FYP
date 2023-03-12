@@ -1,0 +1,83 @@
+
+.text-center
+{
+	background-color:#f4f4f4 ;
+	border-style:none;
+	border-radius:25px;
+	width:300px;
+	margin:auto;
+
+}
+
+.text-center
+{
+  color:black;
+  text-align:center;
+  font-size:20px;
+  padding:10px;
+}
+
+.text-center input[type="file"] 
+{
+
+  border:1px solid #f2f2f2;
+  color: slategrey;
+  text-transform:uppercase;
+  font-family: sans-serif;
+  cursor:pointer;
+}
+
+.text-header h1
+{
+  color:white;
+  text-align:center;
+  font-size:25px;
+}
+
+.u-edit
+{
+	background-color:rgb(218, 215, 215);
+	border-style:none;
+	border-radius:25px;
+	width:800px;
+	margin:auto;
+}
+
+.u-edit h3 
+{
+  text-align:left;
+  margin-left:20px;
+  font-size:1.25rem;
+}
+
+.u-edit input[type="text"],
+.u-edit input[type="password"],
+.u-edit input[type="date"] 
+{
+  max-width:400px;
+  width: 80%;
+  line-height:3em;
+  font-family: sans-serif;
+  margin: 1em;
+  border-radius:5px;
+  border:2px solid #ac9e9e;
+  outline:none;
+  padding-left:10px;
+}
+
+.u-edit input[type="button"] 
+{
+  height:40px;
+  width:200px;
+  background:#3f9542 ;
+  border:1px solid #f2f2f2;
+  border-radius:20px;
+  color: #ffffff ;
+  text-transform:uppercase;
+  font-family:sans-serif;
+  cursor:pointer;
+  font-size:150%;
+  justify-content: center;
+  align-items: center;
+}
+
