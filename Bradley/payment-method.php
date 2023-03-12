@@ -1,7 +1,7 @@
 <?php 
 session_start();
 error_reporting(0);
-include('includes/config.php');
+include('includes/conn.php');
 if(strlen($_SESSION['login'])==0)
     {   
 header('location:login.php');
@@ -52,15 +52,13 @@ else{
 	
 		
 <header class="header-style-1">
-<?php include('includes/top-header.php');?>
-<?php include('includes/main-header.php');?>
-<?php include('includes/menu-bar.php');?>
+<?php include 'includes/header.php'; ?>
 </header>
 <div class="breadcrumb">
 	<div class="container">
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
-				<li><a href="home.html">Home</a></li>
+				<li><a href="index.php">Home</a></li>
 				<li class='active'>Payment Method</li>
 			</ul>
 		</div><!-- /.breadcrumb-inner -->

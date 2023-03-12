@@ -69,7 +69,7 @@
                 <ul class="menu" id="cart_menu">
                 </ul>
               </li>
-              <li class="footer"><a href="cart_view.php">Go to Cart</a></li>
+              <li class="footer"><a href="http://localhost//GitHub/FYP/Bradley/test-cart%20view.php">Go to Cart</a></li> <!--Rmb to change this to cart_view.php-->
             </ul>
           </li>
           <?php
