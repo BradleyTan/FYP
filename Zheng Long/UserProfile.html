@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Lp Pizza</title>
+	
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="css/UserProfile.css">
+<style>
+	body
+	{
+		background-image:url("images/ContactUs Background.jpg");
+	}
+</style>
+<script>
+function myFunction() 
+{
+  alert("Your profile has been updated");
+}
+</script>
+  </head>
+
+  <body>
+    <!-- Page Content -->
+    <!-- About Page Starts Here -->
+    <div class="contact-page">
+	<div class="profile">
+		  <hr>
+		<div class="text-center">
+		<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+		<h6>Upload your photo</h6>
+		<input type="file" id="myfile" name="myfile">
+		</div>
+	</hr>
+	<div class="text-header">
+	<h1>Edit Profile</h1>
+	</div>
+
+	<div class="u-edit">
+	<br>
+		<h3 style="color:black;">FirstName:</h3>
+		<input type="text" name="firstname" placeholder="Enter Your First Name"/><br>
+		
+		<h3 style="color:black;">LastName:</h3>
+		<input type="text" name="lastname" placeholder="Enter Your Last Name"/><br>
+		
+		<h3 style="color:black;">Phone Number:</h3>
+		<input type="text" name="phone" placeholder="Enter Your Phone Number"/><br>
+		
+		<h3 style="color:black;">Email:</h3>
+		<input type="text" name="email" placeholder="Enter your Email"/><br>
+		
+	<form action="/action_page.php"><br>
+		<h3 style="color:black;">Birthday:</h3>
+		<input type="date" id="birthday" name="birthday">
+	</form>
+
+	<br>    
+		  <div style="text-align:center;">
+		<input type="button" value="Save" class="save-button" onclick="myFunction()">
+		</div>
+	<br>
+
+	</div>
+	</div>
+		</div>
+		<!-- About Page Ends Here -->
+
+    <script language = "text/Javascript"> 
+      cleared[0] = cleared[1] = cleared[2] = 0; 
+      function clearField(t){                   
+      if(! cleared[t.id]){                      
+          cleared[t.id] = 1;  
+          t.value='';       
+          t.style.color='#fff';
+          }
+      }
+    </script>
+
+
+  </body>
+
+</html>
