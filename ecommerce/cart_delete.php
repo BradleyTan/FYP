@@ -25,7 +25,7 @@
 			}
 		}
 	}
-
+echo "<script>alert('Shipping Address has been updated');</script>";
 	$pdo->close();
 	echo json_encode($output);
 
