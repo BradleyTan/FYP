@@ -23,6 +23,7 @@
 	  				echo "<li><a href='product.php?product=".$row['slug']."'>".$row['name']."</a></li>";
 	  			}
 
+				
 	  		?>
 	    	<ul>
 	  	</div>
