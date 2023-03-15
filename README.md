@@ -2,4 +2,4 @@
 FYP Project
 
 Take note!!
-Ecommerce Website in PHP and MySQL is the template that we are going to use 
+Ecommerce  is the template that we are going to use 
