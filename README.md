@@ -2,4 +2,4 @@
 FYP Project
 
 Take note!!
-ecommerce is the template that we are going to use 
+Ecommerce  is the template that we are going to use 
