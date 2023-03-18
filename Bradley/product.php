@@ -1,3 +1,4 @@
+//original version
 <?php include 'includes/session.php'; ?>
 <?php
 	$conn = $pdo->open();
@@ -14,18 +15,16 @@
 	catch(PDOException $e){
 		echo "There is some problem in connection: " . $e->getMessage();
 	}
-	
-	//Create DateTime objects for both dates
-	$dateView = new DateTime($product['date_view']);
-	$nowObj = new DateTime($now);
 
-	if($dateView->format('Y-m-d') == $nowObj->format('Y-m-d')){
+	//page view
+	$now = date('Y-m-d');
+	if($product['date_view'] == $now){
 		$stmt = $conn->prepare("UPDATE products SET counter=counter+1 WHERE id=:id");
-		$stmt->execute(['id'=>$product['prodid']]);	  
-	} else {
-	  // Update date_view and reset counter
-      $stmt = $conn->prepare("UPDATE products SET counter=1, date_view=:now WHERE id=:id");
-      $stmt->execute(['id'=>$product['prodid'], 'now'=>$now]);
+		$stmt->execute(['id'=>$product['prodid']]);
+	}
+	else{
+		$stmt = $conn->prepare("UPDATE products SET counter=1, date_view=:now WHERE id=:id");
+		$stmt->execute(['id'=>$product['prodid'], 'now'=>$now]);
 	}
 
 ?>
