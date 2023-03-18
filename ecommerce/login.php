@@ -1,7 +1,7 @@
 <?php include 'includes/session.php'; ?>
 <?php
   if(isset($_SESSION['user'])){
-    header('location: cart_view.php');
+    header('location: index.php');
   }
 ?>
 <?php include 'includes/header.php'; ?>
