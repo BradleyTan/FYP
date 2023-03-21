@@ -85,7 +85,7 @@
 						
 						
 						
-						mysqli_query($conn,"insert into orders(userId,productId,quantity) values('".$_SESSION['id']."','$qty','$val34')");
+						mysqli_query($conn,"insert into orders(userId,productId,quantity) values('".$_SESSION['pid']."','$qty','$val34')");
 						header('location:payment-method.php');
 						}
 					 }					
