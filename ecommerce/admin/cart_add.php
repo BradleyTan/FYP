@@ -33,3 +33,9 @@
 	}
 
 ?>
+
+$result = mysql_query("SELECT * FROM mytable WHERE id = $id");
+$results = array();
+while ($row = mysql_fetch_assoc($result)) {
+    $results[] = $row;
+}
