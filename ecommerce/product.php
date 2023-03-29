@@ -17,7 +17,9 @@
 	
 	//Create DateTime objects for both dates
 	$dateView = new DateTime($product['date_view']);
+	$now = date('Y-m-d');
 	$nowObj = new DateTime($now);
+
 
 	if($dateView->format('Y-m-d') == $nowObj->format('Y-m-d')){
 		$stmt = $conn->prepare("UPDATE products SET counter=counter+1 WHERE id=:id");
