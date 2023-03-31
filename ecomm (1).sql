@@ -58,10 +58,10 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`, `cat_slug`) VALUES
-(1, 'Pantry and Snacks', 'laptops'),
-(2, 'Personal Hygiene', 'desktop-pc'),
-(3, 'Beverages', 'tablets'),
-(4, 'Dressings/Sauces', '');
+(1, 'Pantry and Snacks', 'Pantry and Snacks'),
+(2, 'Personal Hygiene', 'Personal Hygiene'),
+(3, 'Beverages', 'Beverages'),
+(4, 'Dressings/Sauces', 'Dressings/Sauces');
 
 -- --------------------------------------------------------
 
