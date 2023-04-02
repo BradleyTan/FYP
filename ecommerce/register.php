@@ -82,7 +82,7 @@
 				       
 				        //Content
 				        $mail->isHTML(true);                                  
-				        $mail->Subject = 'ECommerce Site Sign Up';
+				        $mail->Subject = 'ShopEz Sign Up';
 				        $mail->Body    = $message;
 
 				        $mail->send();
