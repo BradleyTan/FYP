@@ -50,12 +50,7 @@
       <!-- /.navbar-collapse -->
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <li class="dropdown messages-menu">
-            <a href="wishlist.php" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-heart"></i>
-            </a> 
-          </li>          
+        <ul class="nav navbar-nav">       
           <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
