@@ -1,3 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <style>
+#searchBtn.show {
+  display: none;
+}
+
+#navbar-search-input.show {
+  display: block;
+}
+  </style>
+<script>
+const searchIcon = document.querySelector('.fa-search');
+const searchBtn = document.getElementById('searchBtn');
+const searchInput = document.getElementById('navbar-search-input');
+
+searchIcon.addEventListener('click', function() {
+  searchBtn.classList.toggle('show');
+  searchInput.classList.toggle('show');
+});
+
+</script>
+
+</head>
+<body>
+  
 <header class="main-header">
   <nav class="navbar navbar-static-top">
     <div class="container">
@@ -42,7 +74,7 @@
           <div class="input-group">
               <input type="text" class="form-control" id="navbar-search-input" name="keyword" placeholder="Search for Product" required>
               <span class="input-group-btn" id="searchBtn" style="display:none;">
-                  <button type="submit" class="btn btn-default btn-flat"><i class="fa fa-search"></i> </button>
+                  <button type="submit" class="btn btn-default btn-flat" ><i class="fa fa-search"></i> </button>
               </span>
           </div>
         </form>
@@ -109,3 +141,5 @@
     </div>
   </nav>
 </header>
+</body>
+</html>
