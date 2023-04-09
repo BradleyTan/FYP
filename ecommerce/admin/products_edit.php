@@ -9,13 +9,13 @@
 		$category = $_POST['category'];
 		$price = $_POST['price'];
 		$description = $_POST['description'];
-		$quantity = $_POST['quantity'];
+		$quantity = $_POST['products_quantity'];
 
 		$conn = $pdo->open();
 
 		try{
-			$stmt = $conn->prepare("UPDATE products SET name=:name, slug=:slug, category_id=:category, price=:price, description=:description, quantity=:quantity WHERE id=:id");
-			$stmt->execute(['name'=>$name, 'slug'=>$slug, 'category'=>$category, 'price'=>$price, 'description'=>$description, 'quantity'=>$quantity, 'id'=>$id]);
+			$stmt = $conn->prepare("UPDATE products SET name=:name, slug=:slug, category_id=:category, price=:price, description=:description, products_quantity=:products_quantity WHERE id=:id");
+			$stmt->execute(['name'=>$name, 'slug'=>$slug, 'category'=>$category, 'price'=>$price, 'description'=>$description, 'products_quantity'=>$quantity, 'id'=>$id]);
 			$_SESSION['success'] = 'Product updated successfully';
 		}
 		catch(PDOException $e){

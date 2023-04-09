@@ -114,7 +114,7 @@
                             </td>
                             <td><a href='#description' data-toggle='modal' class='btn btn-info btn-sm btn-flat desc' data-id='".$row['id']."'><i class='fa fa-search'></i> View</a></td>
                             <td>RM ".number_format($row['price'], 2)."</td>
-                            <td>".$row['quantity']."</td>
+                            <td>".$row['products_quantity']."</td>
                             <td>".$counter."</td>
                             <td>
                               <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
@@ -206,7 +206,7 @@ function getRow(id){
       $('#edit_name').val(response.prodname);
       $('#catselected').val(response.category_id).html(response.catname);
       $('#edit_price').val(response.price);
-      $('#edit_quantity').val(response.quantity);
+      $('#edit_quantity').val(response.products_quantity);
       CKEDITOR.instances["editor2"].setData(response.description);
       getCategory();
     }

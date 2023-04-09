@@ -128,7 +128,7 @@ CREATE TABLE `products` (
   `description` text NOT NULL,
   `slug` varchar(200) NOT NULL,
   `price` double NOT NULL,
-  `quantity` int(11) NOT NULL,
+  `products_quantity` int(11) NOT NULL,
   `photo` varchar(200) NOT NULL,
   `date_view` date NOT NULL,
   `counter` int(11) NOT NULL
@@ -138,7 +138,7 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `name`, `description`, `slug`, `price`, `quantity`, `photo`, `date_view`, `counter`) VALUES
+INSERT INTO `products` (`id`, `category_id`, `name`, `description`, `slug`, `price`, `products_quantity`, `photo`, `date_view`, `counter`) VALUES
 (1, 1, 'Campbells Cream Of Mushroom Condensed Soup (420g)', '<p><var>Customize and create with this Cream of Mushroom Soup, which starts with mushrooms, garlic, and farm fresh cream for a smooth flavor. Or, make it the start of your next weeknight meal, like the crowd-pleasing Swedish meatballs and easy one-pot beef stroganoff. With high-quality ingredients, this canned soup always delivers feel-good nourishment. Campbell&rsquo;s Cream of Mushroom Soup is made with no preservatives.</var></p>\r\n\r\n<p><strong>(Expiry Date : 5/7/2024)</strong></p>\r\n', 'campbells-cream-of-mushroom-condensed-soup-420g', 7.99, 10, 'dell-inspiron-15-7000-15-6_1680221934.webp', '2023-03-31', 1),
 (2, 1, 'Hosen Choice Whole Mushroom (425g)', '<p><var>Hosen Choice Whole Mushroom is made from freshly picked mushrooms and immediately packed to seal in all the tangy goodness! Hosen Choice Whole Mushroom are delicious, tender yet firm in texture for the healthy choice for the entire family.</var></p>\r\n\r\n<p><strong>(Expiry Date : 5/7/2025)</strong></p>\r\n', 'hosen-choice-whole-mushroom-425g', 4.99, 10, 'microsoft-surface-pro-4-typecover-128-gb_1680222557.webp', '2018-05-10', 3),
 (3, 1, 'Hosen Longan in Syrup (565g)', '<p><var>Hosen Longan in Syrup is made from freshly picked longan fruits from the trees and immediately packed to seal in all the tangy goodness! Hosen Longan are delicious, tender yet firm in texture for the healthy choice for the entire family.</var></p>\r\n\r\n<p><strong>(Expiry Date : 5/8/2025)</strong></p>\r\n', 'hosen-longan-syrup-565g', 6.99, 10, 'dell-inspiron-15-5000-15-6_1680221659.webp', '2023-03-31', 1),

@@ -36,7 +36,7 @@
                   <label for="edit_quantity" class="col-sm-1 control-label">Quantity</label>
 
                   <div class="col-sm-5">
-                    <input type="text" class="form-control" id="edit_quantity" name="quantity">
+                    <input type="text" class="form-control" id="edit_quantity" name="products_quantity">
                   </div>
                 </div>
               
