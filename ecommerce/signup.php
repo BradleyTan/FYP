@@ -1,14 +1,7 @@
 <?php include 'includes/session.php'; ?>
 <?php
   if(isset($_SESSION['user'])){
-    header('location: cart_view.php');
-  }
-
-  if(isset($_SESSION['captcha'])){
-    $now = time();
-    if($now >= $_SESSION['captcha']){
-      unset($_SESSION['captcha']);
-    }
+    header('location: index.php');
   }
 
 ?>
@@ -58,15 +51,7 @@
             <input type="password" class="form-control" name="repassword" placeholder="Retype password" required>
             <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
           </div>
-          <?php
-            if(!isset($_SESSION['captcha'])){
-              echo '
-                <di class="form-group" style="width:100%;">
-                  <div class="g-recaptcha" data-sitekey="6LevO1IUAAAAAFX5PpmtEoCxwae-I8cCQrbhTfM6"></div>
-                </di>
-              ';
-            }
-          ?>
+
           <hr>
       		<div class="row">
     			<div class="col-xs-4">

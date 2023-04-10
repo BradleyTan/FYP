@@ -26,7 +26,7 @@
 					<p>Your Account:</p>
 					<p>Email: ".$email."</p>
 					<p>Please click the link below to reset your password.</p>
-					<a href='http://localhost/ecommerce/password_reset.php?code=".$code."&user=".$row['id']."'>Reset Password</a>
+					<a href='http://localhost//GitHub/FYP/ecommerce/password_reset.php?code=".$code."&user=".$row['id']."'>Reset Password</a>
 				";
 
 				//Load phpmailer
@@ -38,8 +38,8 @@
 			        $mail->isSMTP();                                     
 			        $mail->Host = 'smtp.gmail.com';                      
 			        $mail->SMTPAuth = true;                               
-			        $mail->Username = 'testsourcecodester@gmail.com';     
-			        $mail->Password = 'mysourcepass';                    
+			        $mail->Username = 'bradleytws03@gmail.com';     
+			        $mail->Password = 'uacmnfzaxdfpakbv';                    
 			        $mail->SMTPOptions = array(
 			            'ssl' => array(
 			            'verify_peer' => false,
@@ -49,19 +49,20 @@
 			        );                         
 			        $mail->SMTPSecure = 'ssl';                           
 			        $mail->Port = 465;                                   
-
-			        $mail->setFrom('testsourcecodester@gmail.com');
+					$mail->SMTPAuth = true;
+			        $mail->setFrom('bradleytws03@gmail.com');
 			        
 			        //Recipients
 			        $mail->addAddress($email);              
-			        $mail->addReplyTo('testsourcecodester@gmail.com');
+			        $mail->addReplyTo('bradleytws03@gmail.com');
 			       
 			        //Content
 			        $mail->isHTML(true);                                  
 			        $mail->Subject = 'ECommerce Site Password Reset';
-			        $mail->Body    = $message;
-
-			        $mail->send();
+					$mail->Body    = $message;
+					$mail->SMTPDebug = 2; 
+					$mail->send();
+					
 
 			        $_SESSION['success'] = 'Password reset link sent';
 			     

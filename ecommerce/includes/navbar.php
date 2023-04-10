@@ -1,3 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <style>
+#searchBtn.show {
+  display: none;
+}
+
+#navbar-search-input.show {
+  display: block;
+}
+  </style>
+<script>
+const searchIcon = document.querySelector('.fa-search');
+const searchBtn = document.getElementById('searchBtn');
+const searchInput = document.getElementById('navbar-search-input');
+
+searchIcon.addEventListener('click', function() {
+  searchBtn.classList.toggle('show');
+  searchInput.classList.toggle('show');
+});
+
+</script>
+
+</head>
+<body>
+  
 <header class="main-header">
   <nav class="navbar navbar-static-top">
     <div class="container">
@@ -12,8 +44,7 @@
       <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
         <ul class="nav navbar-nav">
           <li><a href="index.php">HOME</a></li>
-          <li><a href="">ABOUT US</a></li>
-          <li><a href="">CONTACT US</a></li>
+          <li><a href="aboutus.php">ABOUT US</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATEGORY <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
@@ -43,7 +74,7 @@
           <div class="input-group">
               <input type="text" class="form-control" id="navbar-search-input" name="keyword" placeholder="Search for Product" required>
               <span class="input-group-btn" id="searchBtn" style="display:none;">
-                  <button type="submit" class="btn btn-default btn-flat"><i class="fa fa-search"></i> </button>
+                  <button type="submit" class="btn btn-default btn-flat" ><i class="fa fa-search"></i> </button>
               </span>
           </div>
         </form>
@@ -51,12 +82,7 @@
       <!-- /.navbar-collapse -->
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <li class="dropdown messages-menu">
-            <a href="wishlist.php" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-heart"></i>
-            </a> 
-          </li>          
+        <ul class="nav navbar-nav">       
           <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -115,3 +141,5 @@
     </div>
   </nav>
 </header>
+</body>
+</html>
