@@ -1,5 +1,5 @@
 <style>
-#color{
+p, td{
     color: white;
   }
   </style>
@@ -93,7 +93,7 @@
                     </span>
                 </div>
                 <div class="media-body">
-                    <span><p id="color">shopez@shopping.com</p></span>
+                    <span><p>shopez@shopping.com</p></span>
                 </div>
             </li>
               
