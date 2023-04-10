@@ -1,5 +1,5 @@
 <style>
-  p, td{
+p, td{
     color: white;
   }
   </style>
