@@ -13,6 +13,7 @@
     #color{
       color:black;
     }
+
     </style>
 </head>
 	      <body>
@@ -30,7 +31,8 @@
           </div>
           <div class="col-md-6">
             <div class="left-image">
-              <img src="assets/images/about-us.jpg" alt="">
+              <img src="images/aboutus pic.webp" alt="" height="400px" width="560x">
+
             </div>
           </div>
           <div class="col-md-6">
@@ -42,10 +44,8 @@
               <br>
               <p id="color">Sed purus quam, ultricies eu leo in, sollicitudin varius quam. Proin dictum urna ac diam fermentum tempus. Pellentesque urna urna, ullamcorper a tincidunt dignissim, venenatis in nisi. Vivamus in volutpat tellus. Etiam fermentum luctus posuere.</p>
               <br>
-              <p id="color"><a rel="nofollow" href="https://www.tooplate.com/view/2114-pixie">Pixie HTML Template</a> can be converted into your desired CMS theme. You can use this Bootstrap v4.1.3 layout for any online shop. Please tell your friends about <a rel="nofollow" href="https://www.facebook.com/tooplate/">Tooplate</a>. Thank you.</p>
-              <div class="share">
-                <h6 id="color">Find us on: <span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-twitter"></i></a></span></h6>
-              </div>
+              
+    
             </div>
           </div>
         </div>
