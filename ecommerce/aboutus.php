@@ -7,16 +7,15 @@
 	 
 	  <div class="content-wrapper">
 	    <div class="container">
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
-  <style>
-#color{
+    <style>
+    #color{
       color:black;
     }
-  </style>
+    </style>
 </head>
-  <body>
+	      <body>
     
     <!-- Page Content -->
     <!-- About Page Starts Here -->
@@ -53,20 +52,15 @@
       </div>
     </div>
     <!-- About Page Ends Here -->
-
-
-    
-    </div>
 	        	
-	        </div>
 	      </section>
 	     
 	    </div>
 	  </div>
-    <?php include 'includes/footer.php'; ?>
-  </div>
+  
+  	<?php include 'includes/footer.php'; ?>
+</div>
 
-  <?php include 'includes/scripts.php'; ?>
-  </body>
-
+<?php include 'includes/scripts.php'; ?>
+</body>
 </html>
