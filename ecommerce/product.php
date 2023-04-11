@@ -2,19 +2,27 @@
 <?php
 	$conn = $pdo->open();
 
-	$slug = $_GET['product'];
+	$slug = $_GET['product'] ?? ''; // empty string is the default value
 
 	try{
 		 		
 	    $stmt = $conn->prepare("SELECT *, products.name AS prodname, category.name AS catname, products.id AS prodid FROM products LEFT JOIN category ON category.id=products.category_id WHERE slug = :slug");
 	    $stmt->execute(['slug' => $slug]);
 	    $product = $stmt->fetch();
+
+		if (!$product) {
+		echo "Product not found";
+			exit;
+		}			
 		
 	}
+
 	catch(PDOException $e){
 		echo "There is some problem in connection: " . $e->getMessage();
 	}
-	
+
+
+
 	//Create DateTime objects for both dates
 	$dateView = new DateTime($product['date_view']);
 	$now = date('Y-m-d');
