@@ -1,66 +1,60 @@
 <?php include 'includes/session.php'; ?>
 <?php include 'includes/header.php'; ?>
+
 <body class="hold-transition skin-blue layout-top-nav">
-<div class="wrapper">
-
-	<?php include 'includes/navbar.php'; ?>
+	<div class="wrapper">
+		<?php include 'includes/navbar.php'; ?>
 	 
-	  <div class="content-wrapper">
-	    <div class="container">
+		<div class="content-wrapper">
+			<div class="container">
 
-<head>
-    <style>
-    #color{
-      color:black;
-    }
-    </style>
-</head>
-	      <body>
-    
-    <!-- Page Content -->
-    <!-- About Page Starts Here -->
-    <div class="about-page">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="section-heading">
-              <div class="line-dec"></div>
-              <h1>About Us</h1>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="left-image">
-              <img src="assets/images/about-us.jpg" alt="">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="right-content">
-              <h4>Phasellus vel interdum elit</h4>
-              <p id="color"><a href="https://www.pexels.com/photo/group-of-people-raising-right-hand-1059120/">Photo Credit</a> goes to Pexels website. Aliquam erat volutpat. Pellentesque fringilla, ligula consectetur cursus scelerisque, leo elit pellentesque sapien, et pharetra arcu elit vitae sem. Suspendisse erat dui, condimentum in mi ac, varius tempor sapien. Donec in justo sit amet ex aliquet maximus ac quis erat.</p> 
-              <br>
-              <p id="color">Donec fermentum tincidunt tellus quis fermentum. Proin eget imperdiet purus. Nulla facilisi. Aliquam tincidunt porttitor dui sed euismod. Duis est libero, rhoncus fermentum turpis id, tempus fringilla ipsum. Nullam venenatis tincidunt neque vel hendrerit. Suspendisse porta pretium porttitor.</p>
-              <br>
-              <p id="color">Sed purus quam, ultricies eu leo in, sollicitudin varius quam. Proin dictum urna ac diam fermentum tempus. Pellentesque urna urna, ullamcorper a tincidunt dignissim, venenatis in nisi. Vivamus in volutpat tellus. Etiam fermentum luctus posuere.</p>
-              <br>
-              <p id="color"><a rel="nofollow" href="https://www.tooplate.com/view/2114-pixie">Pixie HTML Template</a> can be converted into your desired CMS theme. You can use this Bootstrap v4.1.3 layout for any online shop. Please tell your friends about <a rel="nofollow" href="https://www.facebook.com/tooplate/">Tooplate</a>. Thank you.</p>
-              <div class="share">
-                <h6 id="color">Find us on: <span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-twitter"></i></a></span></h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- About Page Ends Here -->
-	        	
-	      </section>
-	     
-	    </div>
-	  </div>
+				<head>
+					<style>
+						#color{
+						  color:black;
+						  text-align:justify;
+              font-size: 16px;
+              line-height: 1.5;
+						}
+					</style>
+				</head>
+
+				<!-- Page Content -->
+				<!-- About Page Starts Here -->
+				<div class="about-page">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="section-heading">
+									<div class="line-dec"></div>
+									<h1>About Us</h1>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="left-image">
+									<img src="images/aboutus pic.webp" alt="" height="400px" width="560x">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="right-content">
+									<h3>ShopEz</h3>
+									<p id="color">Welcome to ShopEz, the online grocery that makes grocery shopping convenient and easy. We are a team of dedicated professionals who understand the importance of getting fresh, quality food.</p>
+									<p id="color">At ShopEz, we believe grocery shopping should be a good experience for everyone. That's why we've developed a platform that allows you to order groceries from the comfort of your home or office without having to deal with crowds, long lines, and parking issues.</p>
+									<p id="color">We pride ourselves on providing our customers with a wide range of fresh, high quality, and affordable products. Our range includes everything from fresh fruits and vegetables, dairy, meat, seafood, snacks, and household items to specialty diet products such as gluten-free, organic, and vegan options.</p>
+									<p id="color">Our team of experienced professionals strives to provide you with a seamless shopping experience from start to finish. Our website is designed to be user-friendly, easy to navigate, and secure. Our online payment system is safe and secure, ensuring that your personal and financial information is always protected.</p>
+									<p id="color">We are passionate about providing our customers with the best possible shopping experience, and we are committed to continuous improvement of our services. Thank you for choosing ShopEz.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- About Page Ends Here -->
+			</div>
+		</div>
   
-  	<?php include 'includes/footer.php'; ?>
-</div>
+  		<?php include 'includes/footer.php'; ?>
+	</div>
 
-<?php include 'includes/scripts.php'; ?>
+	<?php include 'includes/scripts.php'; ?>
 </body>
 </html>
