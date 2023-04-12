@@ -6,7 +6,26 @@
 
 ?>
 <?php include 'includes/header.php'; ?>
-<body class="hold-transition register-page">
+<head>
+<link rel='stylesheet' type="text/css" href="style.css">;
+<style>
+        .tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    }
+
+    .tooltip.visible {
+    opacity: 1;
+    }   
+    </style>
+</head>
+<body>
 <div class="register-box">
   	<?php
       if(isset($_SESSION['error'])){
@@ -33,18 +52,18 @@
     	<form action="register.php" method="POST">
           <div class="form-group has-feedback">
             <input type="text" class="form-control" name="firstname" placeholder="Firstname" value="<?php echo (isset($_SESSION['firstname'])) ? $_SESSION['firstname'] : '' ?>" required>
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            <span class="glyphicon glyphicon-user form-control-feedback" style="position:absolute; height: 10px"></span>
           </div>
           <div class="form-group has-feedback">
             <input type="text" class="form-control" name="lastname" placeholder="Lastname" value="<?php echo (isset($_SESSION['lastname'])) ? $_SESSION['lastname'] : '' ?>"  required>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
       		<div class="form-group has-feedback">
-        		<input type="email" class="form-control" name="email" placeholder="Email" value="<?php echo (isset($_SESSION['email'])) ? $_SESSION['email'] : '' ?>" required>
+        		<input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo (isset($_SESSION['email'])) ? $_SESSION['email'] : '' ?>" required>
         		<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       		</div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" name="password" placeholder="Password" required>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
@@ -55,13 +74,29 @@
           <hr>
       		<div class="row">
     			<div class="col-xs-4">
-          			<button type="submit" class="btn btn-primary btn-block btn-flat" name="signup"><i class="fa fa-pencil"></i> Sign Up</button>
+          			<button type="submit" class="btn btn-primary btn-block btn-flat" name="signup"> Sign Up</button>
         		</div>
       		</div>
     	</form>
+      <script>
+    const emailInput = document.getElementById('email');
+    const tooltip = document.createElement('div');
+    tooltip.classList.add('tooltip');
+    tooltip.textContent = 'Your email address should be in the format: name@example.com';
+    
+    emailInput.addEventListener('mouseover', () => {
+      tooltip.classList.add('visible');
+      emailInput.parentNode.insertBefore(tooltip, emailInput.nextSibling);
+    });
+    
+    emailInput.addEventListener('mouseout', () => {
+      tooltip.classList.remove('visible');
+      tooltip.remove();
+    });     
+        </script>  
       <br>
       <a href="login.php">I already have a membership</a><br>
-      <a href="index.php"><i class="fa fa-home"></i> Home</a>
+      <a href="index.php">Home</a>
   	</div>
 </div>
 	
