@@ -1,41 +1,29 @@
 <?php include 'includes/session.php'; ?>
 <?php
-	$conn = $pdo->open();
+	$conn = $pdo->open();  
 
-	$slug = $_GET['product'] ?? ''; // empty string is the default value
+	$slug = $_GET['product']?? ''; // empty string is the default value
 
 	try{
 		 		
 	    $stmt = $conn->prepare("SELECT *, products.name AS prodname, category.name AS catname, products.id AS prodid FROM products LEFT JOIN category ON category.id=products.category_id WHERE slug = :slug");
 	    $stmt->execute(['slug' => $slug]);
 	    $product = $stmt->fetch();
-
-		if (!$product) {
-		echo "Product not found";
-			exit;
-		}			
 		
 	}
-
 	catch(PDOException $e){
 		echo "There is some problem in connection: " . $e->getMessage();
 	}
 
-
-
-	//Create DateTime objects for both dates
-	$dateView = new DateTime($product['date_view']);
+	//page view
 	$now = date('Y-m-d');
-	$nowObj = new DateTime($now);
-
-
-	if($dateView->format('Y-m-d') == $nowObj->format('Y-m-d')){
+	if (is_array($product) && isset($product['date_view']) && $product['date_view'] == $now) {
 		$stmt = $conn->prepare("UPDATE products SET counter=counter+1 WHERE id=:id");
-		$stmt->execute(['id'=>$product['prodid']]);	  
-	} else {
-	  // Update date_view and reset counter
-      $stmt = $conn->prepare("UPDATE products SET counter=1, date_view=:now WHERE id=:id");
-      $stmt->execute(['id'=>$product['prodid'], 'now'=>$now]);
+		$stmt->execute(['id'=>$product['prodid']]);
+	}
+	else if (is_array($product) && isset($product['prodid'])) {
+		$stmt = $conn->prepare("UPDATE products SET counter=1, date_view=:now WHERE id=:id");
+		$stmt->execute(['id'=>$product['prodid'], 'now'=>$now]);
 	}
 
 ?>
@@ -89,7 +77,7 @@
 		            	</div>
 		            	<div class="col-sm-6">
 		            		<h1 class="page-header"><?php echo $product['prodname']; ?></h1>
-		            		<h3><b>RM <?php echo number_format($product['price'], 2); ?></b></h3>
+		            		<h3><b>&#36; <?php echo number_format($product['price'], 2); ?></b></h3>
 		            		<p><b>Category:</b> <a href="category.php?category=<?php echo $product['cat_slug']; ?>"><?php echo $product['catname']; ?></a></p>
 		            		<p><b>Description:</b></p>
 		            		<p><?php echo $product['description']; ?></p>

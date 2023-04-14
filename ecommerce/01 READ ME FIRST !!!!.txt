@@ -17,6 +17,10 @@ Password: Zp{snr;U7"}:+~DQ
 Username: horzhenglong@gmail.com
 Password: P'*.Ns+4EYLj:-%D
 
+//Use this for password reset
+SVK38RZMf@Ua+LI6
+$yz#Lwtbq2+!W2jZ
+&HQFLr%L5zaSrrmu
 
 DON'T FORGET TO CREATE A DATABASE NAMING "ecomm" AND IMPORT THE SQL FILE TO RUN.
 WITHOUT THE DATABASE THE PROJECT WON'T RUN.
