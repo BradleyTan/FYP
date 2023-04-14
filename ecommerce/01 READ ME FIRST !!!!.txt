@@ -6,12 +6,17 @@ ADMIN PANEL LOGIN:
 >>Enter the following details in Login for Admin Panel.
 
 Username: admin@admin.com
-Password: password
+Password: 3j?-D3LSebw33Sy=
 
 USER LOGIN:
 
-Username: darkseid@gmail.com
-Password: darkseid
+Username: bradleytan119@gmail.com
+Password: Zp{snr;U7"}:+~DQ
+
+// Add inside into the database
+Username: horzhenglong@gmail.com
+Password: P'*.Ns+4EYLj:-%D
+
 
 DON'T FORGET TO CREATE A DATABASE NAMING "ecomm" AND IMPORT THE SQL FILE TO RUN.
 WITHOUT THE DATABASE THE PROJECT WON'T RUN.
