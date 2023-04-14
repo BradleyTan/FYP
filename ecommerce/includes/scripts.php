@@ -81,3 +81,81 @@ function getCart(){
 	});
 }
 </script>
+<script>
+    const emailInput = document.getElementById('email');
+    const tooltip = document.createElement('div');
+    tooltip.classList.add('tooltip');
+    tooltip.textContent = 'Your email address should be in the format: name@example.com';
+    
+    emailInput.addEventListener('mouseover', () => {
+      tooltip.classList.add('visible');
+      emailInput.parentNode.insertBefore(tooltip, emailInput.nextSibling);
+    });
+    
+    emailInput.addEventListener('mouseout', () => {
+      tooltip.classList.remove('visible');
+      tooltip.remove();
+    });     
+      </script>  
+	
+	<script>
+
+$(document).ready(function(){
+
+$("#pass").keyup(function(){
+
+check_pass();
+
+});
+
+});
+
+function check_pass() {
+  var val=document.getElementById("pass").value;
+  var meter=document.getElementById("meter");
+  var no=0;
+  if(val!="")
+  {
+    if(val.length<=8)no=1;
+    if(val.length>8 && (val.match(/[a-z]/) || val.match(/\d+/) || val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)))no=2;
+    if(val.length>8 && ((val.match(/[a-z]/) && val.match(/\d+/)) || (val.match(/\d+/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) || (val.match(/[a-z]/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/))))no=3;
+    if(val.length>8 && val.match(/[a-z]/) && val.match(/\d+/) && val.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/))no=4;
+
+    if(no==1)
+    {
+      $("#meter").animate({width:'50px'},300);
+      meter.style.borderColor = "red";
+      document.getElementById("pass_type").innerHTML="Very Weak";
+    }
+
+	if(no==2)
+  {
+   $("#meter").animate({width:'100px'},300);
+   meter.style.borderColor="#F5BCA9";
+   document.getElementById("pass_type").innerHTML="Weak";
+  }
+
+  if(no==3)
+  {
+   $("#meter").animate({width:'150px'},300);
+   meter.style.borderColor="#FF8000";
+   document.getElementById("pass_type").innerHTML="Good";
+  }
+
+  if(no==4)
+  {
+   $("#meter").animate({width:'200px'},300);
+   meter.style.borderColor="#00FF40";
+   document.getElementById("pass_type").innerHTML="Strong";
+  }
+ }
+
+ else
+ {
+  meter.style.borderColor="";
+  document.getElementById("pass_type").innerHTML="";
+ }
+}
+
+
+</script>

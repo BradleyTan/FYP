@@ -3,7 +3,7 @@
 <head>
   	<meta charset="utf-8">
   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  	<title>Ecommerce Site using PHP</title>
+  	<title>ShopEz</title>
   	<!-- Tell the browser to be responsive to screen width -->
   	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   	<!-- Bootstrap 3.3.7 -->
@@ -91,7 +91,23 @@
       width: 100px;
       height: 100px;
     }
+    </style>
 
+  <style>
+    .tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    }
+
+    .tooltip.visible {
+    opacity: 1;
+    }   
     </style>
 
 </head>

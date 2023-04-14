@@ -1,6 +1,18 @@
 <?php include 'includes/session.php'; ?>
 <?php include 'includes/header.php'; ?>
-<body class="hold-transition login-page">
+<head>
+  <style>
+    body{
+    background-image: url("images/1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+   
+}
+  </style>
+</head>
+<body>
 <div class="login-box">
   	<?php
       if(isset($_SESSION['error'])){
@@ -25,7 +37,7 @@
 
     	<form action="reset.php" method="POST">
       		<div class="form-group has-feedback">
-        		<input type="email" class="form-control" name="email" placeholder="Email" required>
+        		<input type="email" class="form-control" name="email" placeholder="Email" title="Your email address should be in the format: name@example.com" required>
         		<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       		</div>
       		<div class="row">

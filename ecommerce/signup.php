@@ -7,23 +7,15 @@
 ?>
 <?php include 'includes/header.php'; ?>
 <head>
-<link rel='stylesheet' type="text/css" href="style.css">;
 <style>
-        .tooltip {
-    position: absolute;
-    background-color: #333;
-    color: #fff;
-    padding: 5px;
-    font-size: 12px;
-    border-radius: 3px;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    }
-
-    .tooltip.visible {
-    opacity: 1;
-    }   
-    </style>
+    body{
+    background-image: url("images/1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+  </style>
 </head>
 <body>
 <div class="register-box">
@@ -54,21 +46,31 @@
             <input type="text" class="form-control" name="firstname" placeholder="Firstname" value="<?php echo (isset($_SESSION['firstname'])) ? $_SESSION['firstname'] : '' ?>" required>
             <span class="glyphicon glyphicon-user form-control-feedback" style="position:absolute; height: 10px"></span>
           </div>
+
           <div class="form-group has-feedback">
             <input type="text" class="form-control" name="lastname" placeholder="Lastname" value="<?php echo (isset($_SESSION['lastname'])) ? $_SESSION['lastname'] : '' ?>"  required>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
+
       		<div class="form-group has-feedback">
-        		<input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo (isset($_SESSION['email'])) ? $_SESSION['email'] : '' ?>" required>
+        		<input type="email" class="form-control" name="email" placeholder="Email" value="<?php echo (isset($_SESSION['email'])) ? $_SESSION['email'] : '' ?>" title="Your email address should be in the format: name@example.com" required>
         		<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       		</div>
+          
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            <input type="password" class="form-control" id="pass" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+            <div class="input-group"><!-- input-group Starts -->
+              <span class="input-group-addon"><!-- input-group-addon Starts -->
+                <div id="meter_wrapper"><!-- meter_wrapper Starts -->
+                  <span id="pass_type"> </span>
+                  <div id="meter"> </div>
+                </div><!-- meter_wrapper Ends -->  
+              </span><!-- input-group-addon Ends -->
+            </div><!-- input-group Ends --> 
           </div>
+          
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" name="repassword" placeholder="Retype password" required>
-            <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+            <input type="password" class="form-control" name="repassword" placeholder="Retype password" title="Retype password must be the same as the password above" required>
           </div>
 
           <hr>
@@ -78,28 +80,12 @@
         		</div>
       		</div>
     	</form>
-      <script>
-    const emailInput = document.getElementById('email');
-    const tooltip = document.createElement('div');
-    tooltip.classList.add('tooltip');
-    tooltip.textContent = 'Your email address should be in the format: name@example.com';
-    
-    emailInput.addEventListener('mouseover', () => {
-      tooltip.classList.add('visible');
-      emailInput.parentNode.insertBefore(tooltip, emailInput.nextSibling);
-    });
-    
-    emailInput.addEventListener('mouseout', () => {
-      tooltip.classList.remove('visible');
-      tooltip.remove();
-    });     
-        </script>  
       <br>
       <a href="login.php">I already have a membership</a><br>
       <a href="index.php">Home</a>
   	</div>
 </div>
-	
+
 <?php include 'includes/scripts.php' ?>
 </body>
 </html>
