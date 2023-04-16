@@ -92,22 +92,4 @@
       height: 100px;
     }
     </style>
-
-  <style>
-    .tooltip {
-    position: absolute;
-    background-color: #333;
-    color: #fff;
-    padding: 5px;
-    font-size: 12px;
-    border-radius: 3px;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    }
-
-    .tooltip.visible {
-    opacity: 1;
-    }   
-    </style>
-
 </head>

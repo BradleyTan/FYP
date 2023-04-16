@@ -1,5 +1,5 @@
 <style>
-p, td{
+#color{
     color: white;
   }
   </style>
@@ -21,7 +21,7 @@ p, td{
     </div><!-- /.footer-logo -->
 
      <div class="module-body m-t-20">
-        <p class="about-us">ShopEz is an online grocery store that offers a wide selection of high-quality products with excellent customer service. They prioritize convenience and make grocery shopping easy and efficient.</p>
+        <p class="about-us" id="color">ShopEz is an online grocery store that offers a wide selection of high-quality products with excellent customer service. They prioritize convenience and make grocery shopping easy and efficient.</p>
     
     </div><!-- /.module-body -->
 
@@ -41,8 +41,8 @@ p, td{
 		<div class="table-responsive">
 			<table class="table">
 				<tbody>
-					<tr><td>Monday-Friday:</td><td class="pull-right">9.00 To 18.00(GMT+8)</td></tr>
-					<tr><td>Saturday:</td><td class="pull-right">9.00 To 12.00(GMT+8)</td></tr>
+					<tr><td id="color">Monday-Friday:</td><td class="pull-right" id="color">9.00 To 18.00(GMT+8)</td></tr>
+					<tr><td id="color">Saturday:</td><td class="pull-right" id="color">9.00 To 12.00(GMT+8)</td></tr>
 				</tbody>
 			</table>
 		</div><!-- /.table-responsive -->
@@ -69,7 +69,7 @@ p, td{
                     </span>
                 </div>
                 <div class="media-body">
-                    <p>Melaka Tengah, Malaysia</p>
+                    <p id="color">Melaka Tengah, Malaysia</p>
                 </div>
             </li>
 
@@ -81,7 +81,7 @@ p, td{
                     </span>
                 </div>
                 <div class="media-body">
-                    <p>+60 12-345 6789<br>+60 12-834 4545</p>
+                    <p id="color">+60 12-345 6789<br>+60 12-834 4545</p>
                 </div>
             </li>
 
@@ -93,7 +93,7 @@ p, td{
                     </span>
                 </div>
                 <div class="media-body">
-                    <span><p>shopez@shopping.com</p></span>
+                    <span><p id="color">shopez@shopping.com</p></span>
                 </div>
             </li>
               

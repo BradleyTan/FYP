@@ -81,23 +81,7 @@ function getCart(){
 	});
 }
 </script>
-<script>
-    const emailInput = document.getElementById('email');
-    const tooltip = document.createElement('div');
-    tooltip.classList.add('tooltip');
-    tooltip.textContent = 'Your email address should be in the format: name@example.com';
-    
-    emailInput.addEventListener('mouseover', () => {
-      tooltip.classList.add('visible');
-      emailInput.parentNode.insertBefore(tooltip, emailInput.nextSibling);
-    });
-    
-    emailInput.addEventListener('mouseout', () => {
-      tooltip.classList.remove('visible');
-      tooltip.remove();
-    });     
-      </script>  
-	
+
 	<script>
 
 $(document).ready(function(){
