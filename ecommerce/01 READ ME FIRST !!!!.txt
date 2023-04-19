@@ -9,6 +9,8 @@ Username: admin@admin.com
 Password: 3j?-D3LSebw33Sy=
 
 USER LOGIN:
+Username: darkseid@gmail.com
+Password: &HQFLr%L5zaSrrmu
 
 Username: bradleytan119@gmail.com
 Password: Zp{snr;U7"}:+~DQ
@@ -20,7 +22,7 @@ Password: P'*.Ns+4EYLj:-%D
 //Use this for password reset
 SVK38RZMf@Ua+LI6
 $yz#Lwtbq2+!W2jZ
-&HQFLr%L5zaSrrmu
+
 
 DON'T FORGET TO CREATE A DATABASE NAMING "ecomm" AND IMPORT THE SQL FILE TO RUN.
 WITHOUT THE DATABASE THE PROJECT WON'T RUN.
