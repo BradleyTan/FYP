@@ -29,7 +29,7 @@
               <h4><i class='icon fa fa-warning'></i> Error!</h4>
               ".$_SESSION['error']."
             </div>
-          )";
+          ";
           unset($_SESSION['error']);
         }
         if(isset($_SESSION['success'])){
@@ -69,7 +69,8 @@
                       foreach($stmt as $row){
                         $image = (!empty($row['photo'])) ? '../images/'.$row['photo'] : '../images/profile.jpg';
                         $status = ($row['status']) ? '<span class="label label-success">active</span>' : '<span class="label label-danger">Inactive</span>';
-                        $active = (!$row['status']) ? '<span class="pull-right"><a href="#activate" class="status" id="active" data-toggle="modal" data-id="'.$row['id'].'"><i class="fa fa-check-square-o"></i></a></span>' : ''; 
+                        $active = (!$row['status']) ? '<span class="pull-right"><a href="#activate" class="status" data-toggle="modal" data-id="'.$row['id'].'"><i class="fa fa-square-o"></i></a></span>' : '<span class="pull-right"><a href="#inactivate" class="status" data-toggle="modal" data-id="'.$row['id'].'"><i class="fa fa-check-square-o"></i></a></span>';
+
                         echo "
                           <tr>
                             <td>
@@ -81,12 +82,13 @@
                             <td>
                               ".$status."
                               ".$active."
+    
                             </td>
                             <td>".date('M d, Y', strtotime($row['created_on']))."</td>
                             <td>
                               <a href='cart.php?user=".$row['id']."' class='btn btn-info btn-sm btn-flat'><i class='fa fa-search'></i> Cart</a>
                               <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
-
+                              
                             </td>
                           </tr>
                         ";
@@ -124,12 +126,7 @@ $(function(){
     getRow(id);
   });
 
-  $(document).on('click', '.delete', function(e){
-    e.preventDefault();
-    $('#delete').modal('show');
-    var id = $(this).data('id');
-    getRow(id);
-  });
+
 
   $(document).on('click', '.photo', function(e){
     e.preventDefault();
@@ -142,6 +139,7 @@ $(function(){
     var id = $(this).data('id');
     getRow(id);
   });
+  
 
 });
 
