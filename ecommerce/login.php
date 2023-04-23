@@ -2,6 +2,7 @@
 <?php
   if(isset($_SESSION['user'])){
     header('location: index.php');
+    exit;
   }
 ?>
 <?php include 'includes/header.php'; ?>
@@ -16,6 +17,11 @@
    
 }
   </style>
+  	<script>
+		function preventBack(){window.history.forward()};
+		setTimeout("preventBack()",0);
+		window.onunload = function(){null;}
+    </script>	
 </head>
 
 <body>
