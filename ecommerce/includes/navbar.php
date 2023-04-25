@@ -9,7 +9,6 @@
   <script>
   var searchBtn = document.getElementById("searchBtn");
   searchBtn.addEventListener("click", function(event) {
-    // Code to perform when the search button is clicked
   });
 </script>
 </head>
