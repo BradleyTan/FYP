@@ -5,19 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-<script>
-const searchIcon = document.querySelector('.fa-search');
-const searchBtn = document.getElementById('searchBtn');
-const searchInput = document.getElementById('navbar-search-input');
-
-searchIcon.addEventListener('click', function() {
-  searchBtn.classList.toggle('show');
-  searchInput.classList.toggle('show');
-});
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>
+  var searchBtn = document.getElementById("searchBtn");
+  searchBtn.addEventListener("click", function(event) {
+    // Code to perform when the search button is clicked
+  });
 </script>
-
 </head>
 <body>
   
@@ -61,11 +55,12 @@ searchIcon.addEventListener('click', function() {
             </ul>
           </li>
         </ul>
+
         <form method="POST" class="navbar-form navbar-left" action="search.php">
           <div class="input-group">
               <input type="text" class="form-control" id="navbar-search-input" name="keyword" placeholder="Search for Product" required>
-              <span class="input-group-btn" id="searchBtn" style="display:none;">
-                  <button type="submit" class="btn btn-default btn-flat" ><i class="fa fa-search"></i> </button>
+              <span class="input-group-btn" id="searchBtn">
+              <button type="submit" class="btn btn-default btn-flat" ><i class="fa fa-search"></i> </button>
               </span>
           </div>
         </form>

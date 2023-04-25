@@ -32,12 +32,16 @@ $(function(){
 <script>
 $(function(){
   $('#navbar-search-input').focus(function(){
-    $('#searchBtn').show();
-  });
+  $('#searchBtn').show();
+});
 
-  $('#navbar-search-input').focusout(function(){
+$('#navbar-search-input').focusout(function(event){
+  // Check if the input field is the target of the event
+  if (event.target !== this) {
     $('#searchBtn').hide();
-  });
+  }
+});
+
 
   getCart();
 
