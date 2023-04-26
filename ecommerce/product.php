@@ -1,6 +1,6 @@
 <?php include 'includes/session.php'; ?>
 <?php
-	$conn = $pdo->open();  
+	$conn = $pdo->open();
 
 	$slug = $_GET['product']?? ''; // empty string is the default value
 
@@ -64,7 +64,7 @@
 			            				<span class="input-group-btn">
 			            					<button type="button" id="minus" class="btn btn-default btn-flat btn-lg"><i class="fa fa-minus"></i></button>
 			            				</span>
-							          	<input type="text" name="quantity" id="quantity" class="form-control input-lg" value="1">
+							          	<input type="text" name="quantity" id="quantity" class="form-control input-lg" value="1" min="1" max="10">
 							            <span class="input-group-btn">
 							                <button type="button" id="add" class="btn btn-default btn-flat btn-lg"><i class="fa fa-plus"></i>
 							                </button>
@@ -104,19 +104,29 @@ $(function(){
 	$('#add').click(function(e){
 		e.preventDefault();
 		var quantity = $('#quantity').val();
-		quantity++;
-		$('#quantity').val(quantity);
+		if(quantity < 10){
+			quantity++;
+			$('#quantity').val(quantity);
+		}
 	});
 	$('#minus').click(function(e){
 		e.preventDefault();
 		var quantity = $('#quantity').val();
 		if(quantity > 1){
 			quantity--;
+			$('#quantity').val(quantity);
 		}
-		$('#quantity').val(quantity);
 	});
-
+	$('#quantity').on('change', function(){
+		var quantity = parseInt($(this).val());
+		if(quantity < 1){
+			$(this).val(1);
+		} else if(quantity > 10){
+			$(this).val(10);
+		}
+	});
 });
+
 </script>
 </body>
 </html>

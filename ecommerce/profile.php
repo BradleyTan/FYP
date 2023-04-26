@@ -67,10 +67,10 @@
 	        		</div>
 	        		<div class="box box-solid">
 	        			<div class="box-header with-border">
-	        				<h4 class="box-title"><i class="fa fa-calendar"></i> <b>Transaction History</b></h4>
+	        				<h4 class="box-title"><b>Transaction History</b></h4>
 	        			</div>
 						<div class="pull-right">
-							<form method="POST" class="form-inline" action="admin/sales_print.php">
+							<form method="POST" class="form-inline" action="sales_print.php">
 							<div class="input-group">
 								<div class="input-group-addon">
 								<i class="fa fa-calendar"></i>
