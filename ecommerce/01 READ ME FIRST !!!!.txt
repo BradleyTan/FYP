@@ -5,6 +5,7 @@ ADMIN PANEL LOGIN:
 >> NOTE : (for admin panel, login from the user's login)
 >>Enter the following details in Login for Admin Panel.
 
+ADMIN LOGIN:
 Username: admin@admin.com
 Password: 3j?-D3LSebw33Sy=
 
@@ -24,15 +25,3 @@ SVK38RZMf@Ua+LI6
 $yz#Lwtbq2+!W2jZ
 
 
-DON'T FORGET TO CREATE A DATABASE NAMING "ecomm" AND IMPORT THE SQL FILE TO RUN.
-WITHOUT THE DATABASE THE PROJECT WON'T RUN.
-
->>DATABASE FILE IS INSIDE "database" FOLDER!
-
-***** IF YOU FIND ANY ERRORS OR ANY PROBLEMS RELATED THIS PROGRAM, FEEL FREE TO CONTACT US *****  
-
-***** LEAVE A COMMENT IF YOU LOVED OUR WORK *****
-
-***** FOR MORE PROJECTS :- https://freeprojectscodes.com/ *****
-
-#THANK YOU FOR DOWNLOADING
