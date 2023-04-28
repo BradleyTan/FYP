@@ -1,32 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<script>
-let quantityInput = document.getElementById("quantity");
-
-quantityInput.addEventListener("input", function() {
-  let quantity = parseInt(quantityInput.value);
-
-  if (quantity < 1) {
-    quantity = 1;
-  }
-
-  if (quantity > 10) {
-    quantity = 10;
-  }
-
-  quantityInput.value = quantity;
-});
-
-	</script>
-</head>
-<body>
 <?php
-
 	include 'includes/session.php';
 	$conn = $pdo->open();
 
@@ -101,7 +73,6 @@ quantityInput.addEventListener("input", function() {
 				$image = (!empty($product['photo'])) ? 'images/'.$product['photo'] : 'images/noimage.jpg';
 				$subtotal = $product['price']*$row['quantity'];
 				$total += $subtotal;
-
 				$output .= "
 					<tr>
 						<td><button type='button' data-id='".$row['productid']."' class='btn btn-danger btn-flat cart_delete'><i class='fa fa-remove'></i></button></td>
@@ -141,7 +112,9 @@ quantityInput.addEventListener("input", function() {
 		}
 		
 	}
+
+	$pdo->close();
+	echo json_encode($output);
+
 ?>
-</body>
-</html>
 
