@@ -1,6 +1,6 @@
 <?php include 'includes/session.php'; ?>
 <?php include 'includes/header.php'; ?>
-<!-- PRASATH -->
+
 <style>
 #validationmessage
 {
