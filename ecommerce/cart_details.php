@@ -94,7 +94,7 @@
 				";
 				
 			}
-
+			
 			$output .= "
 				<tr>
 					<td colspan='5' align='right'><b>Total</b></td>
@@ -118,5 +118,6 @@
 	echo json_encode($output);
 
 ?>
+
 
 
