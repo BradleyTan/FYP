@@ -35,16 +35,16 @@
 		return $contents;
 	}
 
-	if(isset($_POST['print'])){
+	if (strpos($_POST['date_range'], ' - ') !== false) {
 		$ex = explode(' - ', $_POST['date_range']);
 		$from = date('Y-m-d', strtotime($ex[0]));
 		$to = date('Y-m-d', strtotime($ex[1]));
 		$from_title = date('M d, Y', strtotime($ex[0]));
-		$to_title = date('M d, Y', strtotime($ex[1]));
+		$to_title = date('M d, Y', strtotime($ex[1]));	
 
 		$conn = $pdo->open();
 
-		require_once('../tcpdf/tcpdf.php');  
+		require_once('tcpdf/tcpdf.php');  
 	    $pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);  
 	    $pdf->SetCreator(PDF_CREATOR);  
 	    $pdf->SetTitle('Sales Report: '.$from_title.' - '.$to_title);  
