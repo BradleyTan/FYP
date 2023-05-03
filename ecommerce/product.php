@@ -58,9 +58,20 @@
 		            		<img src="<?php echo (!empty($product['photo'])) ? 'images/'.$product['photo'] : 'images/noimage.jpg'; ?>" width="100%" class="zoom" data-magnify-src="images/large-<?php echo $product['photo']; ?>">
 		            		<br><br>
 		            		<form class="form-inline" id="productForm">
+									<?php
+										if($product['products_quantity'] == 0)
+										{
+											echo '<h4 style="color:red;">Out Of Stock</h4>';
+										}
+										else
+										{
+											echo '<h4 style="color:green;">In Stock</h4>';
+										}
+										
+									?>
+								<h4>Quantity</h4>
 		            			<div class="form-group">
 			            			<div class="input-group col-sm-5">
-			            				
 			            				<span class="input-group-btn">
 			            					<button type="button" id="minus" class="btn btn-default btn-flat btn-lg"><i class="fa fa-minus"></i></button>
 			            				</span>
@@ -69,10 +80,22 @@
 							                <button type="button" id="add" class="btn btn-default btn-flat btn-lg"><i class="fa fa-plus"></i>
 							                </button>
 							            </span>
+										
 							            <input type="hidden" value="<?php echo $product['prodid']; ?>" name="id">
-							        </div>
-			            			<button type="submit" class="btn btn-primary btn-lg btn-flat"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-			            		</div>
+										<?php
+											if($product['products_quantity'] > 0)
+											{
+												echo'</div>
+													<button type="submit" class="btn btn-primary btn-lg btn-flat"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+												</div>';
+											
+											}
+											else
+											{
+												echo'</div></div>';
+											}
+
+										?>
 		            		</form>
 		            	</div>
 		            	<div class="col-sm-6">
