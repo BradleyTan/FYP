@@ -50,9 +50,9 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#"><i class="fa fa-circle-o"></i> Today's Orders</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> Pending Orders</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> Delivery Orders</a></li>
+          <li><a href="todays-orders.php"><i class="fa fa-circle-o"></i> Today's Orders</a></li>
+          <li><a href="pending-orders.php"><i class="fa fa-circle-o"></i> Pending Orders</a></li>
+          <li><a href="delivered-orders.php"><i class="fa fa-circle-o"></i> Delivery Orders</a></li>
         </ul>
       </li>
     </ul>
