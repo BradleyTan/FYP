@@ -11,10 +11,10 @@
 				<head>
 					<style>
 						#color2{
-						  color:black;
-						  text-align:justify;
-              font-size: 16px;
-              line-height: 1.5;
+							color:black;
+							text-align:justify;
+							font-size: 16px;
+							line-height: 1.5;
 						}
 					</style>
 				</head>
