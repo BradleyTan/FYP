@@ -1,6 +1,6 @@
 <!-- Transaction History -->
 <div class="modal fade" id="transaction">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="color:black !important;">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -11,6 +11,13 @@
               <p>
                 Date: <span id="date"></span>
                 <span class="pull-right">Transaction#: <span id="transid"></span></span> 
+                <input type="hidden" id="sales_id" />
+              </p>
+              <p>
+                Delivery Details: <span id="date"></span>
+                <span class="pull-right"><span id="ship_name"></span></span> <br>
+                <span class="pull-right"><span id="ship_num"></span></span> <br>
+                <span class="pull-right" style="text-align: right;" ><span id="ship_address"></span></span> 
               </p>
               <table class="table table-bordered">
                 <thead>
@@ -28,7 +35,8 @@
               </table>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default btn-flat pull-right" style="margin-left:10px;" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" id="print_invoice" onclick="printInvoice();" class="btn btn-warning btn-flat pull-right" ><i class="fa fa-export"></i> Print Invoice</button>
             </div>
         </div>
     </div>
