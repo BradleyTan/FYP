@@ -28,7 +28,7 @@
 
 	$pdo->close();
     echo json_encode($output);
-	// Redirect the user back to the cart page
+	
 	header('Location: cart_details.php');
 	exit();
 ?>
