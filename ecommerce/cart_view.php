@@ -402,12 +402,6 @@ paypal.Button.render({
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="loader">
   <img id="loading-image" src="assets/images/loading.gif" alt="Loading..." />
-  <br><br>
-	Your payment is being processed.
-	<br>
-	Please do not close this window or press the browser back button
-	<br>
-	until submission is complete
 </div>
 
 <div id="paymentmodal" class="modal-wrapper">
@@ -418,7 +412,7 @@ paypal.Button.render({
 	                <i class="fas fa-times"></i>
     	        </button> 
             </div>
-            <div class="modal-content" style="padding: 10px 0 110px 0">
+            <div class="modal-content" style="padding: 10px 0 60px 0">
                 <form id="ccform">
 					<div class="products" style="padding:10px;">
           				<div class="card-details">
