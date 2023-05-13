@@ -25,8 +25,10 @@
 			}
 		}
 	}
-echo "<script>alert('Shipping Address has been updated');</script>";
-	$pdo->close();
-	echo json_encode($output);
 
+	$pdo->close();
+
+	// Redirect the user back to the cart page
+	header('Location: cart_details.php');
+	exit();
 ?>
