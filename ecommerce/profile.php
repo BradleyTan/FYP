@@ -169,6 +169,9 @@ $(function(){
 				$('#ship_address').html(response.ship_address);
 				$('#detail').prepend(response.list);
 				$('#total').html(response.total);
+				$('#sales_id').val(response.sales_id);
+
+				
 			}
 		});
 	});
@@ -180,7 +183,7 @@ $(function(){
 
 function printInvoice()
 {
-	let invoiceid = $("#transid").html();
+	let invoiceid = $("#sales_id").val();
 	window.open('tcpdf/examples/print_invoice.php?id="'+invoiceid+'"',"_blank");
 
 	// $.ajax({
