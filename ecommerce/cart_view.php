@@ -307,7 +307,7 @@ function verifyData(e) {
             console.log(shippinginfo.mobile);
             alert("Mobile field has errors. Please correct Mobile No.<br>Mobile No can ONLY have Numbers 0 to 9.<br>Remove letters, space and any symbols such as dash, comma, bracket or quote marks. And MUST be at least 10 numbers in length.");
             return;
-        }
+		}			
 
 	$.ajax({  
 			type:"POST",  
