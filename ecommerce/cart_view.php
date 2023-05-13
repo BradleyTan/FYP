@@ -8,7 +8,7 @@
 	height: 100%;
 	text-align: left;
 	margin-top: 3px;
-	font-size: 15px;
+	font-size: 11px;
 
 }
 .modal-payment-summary {
@@ -93,9 +93,6 @@
   position: relative;
   padding: 15px;
 }
-
-
-
 .loader {
   position: fixed;
   top: 0;
@@ -262,17 +259,11 @@ $(function(){
 
 function verifyData(e) {
    	e.preventDefault();
-	let card_selection = $('input[name="card_selection"]:checked').val();
-	let d = '_new';
-	if(card_selection == '2')
-	{
-		d = '';
-	}
-   	var name = $("#card_holder_name"+d).val();  
-	var number = $("#card_number"+d).val();  
-	var cvc = $("#cvc"+d).val();  
-	var ccmonth = $("#ccmonth"+d).val();  
-	var ccyear = $("#ccyear"+d).val();  
+   	var name = $("#card_holder_name").val();  
+	var number = $("#card_number").val();  
+	var cvc = $("#cvc").val();  
+	var ccmonth = $("#ccmonth").val();  
+	var ccyear = $("#ccyear").val();  
 	let shippinginfo = {
         name: $('.shippingname').val(),
         street1: $('.shippingaddress1').val(),
@@ -316,7 +307,7 @@ function verifyData(e) {
             console.log(shippinginfo.mobile);
             alert("Mobile field has errors. Please correct Mobile No.<br>Mobile No can ONLY have Numbers 0 to 9.<br>Remove letters, space and any symbols such as dash, comma, bracket or quote marks. And MUST be at least 10 numbers in length.");
             return;
-	}
+        }
 
 	$.ajax({  
 			type:"POST",  
@@ -337,11 +328,8 @@ function verifyData(e) {
 						},
 						dataType: 'json',
 						success: function(response){
-								if(response.status)
-								{
-								window.location.href = 'profile.php';
-								}
-							}
+							window.location = 'profile.php';
+						}
 					});
 				} else {
 					return;
@@ -397,11 +385,10 @@ function getDetails(){
 function showCardDetails(val)
 {
 	$('#show_card_list').show();	
-	$('#card_number_new').val($(val).find(':selected').data('num'));
-	$('#card_holder_name_new').val($(val).find(':selected').data('name'));
-	let month = ('0' + $(val).find(':selected').data('month')).slice(-2);
-	$('#ccmonth_new').val(month);
-	$('#ccyear_new').val($(val).find(':selected').data('year'));
+	$('#card_number').val($(val).find(':selected').data('num'));
+	$('#card_holder_name').val($(val).find(':selected').data('name'));
+	$('#ccmonth').val($(val).find(':selected').data('month'));
+	$('#ccyear').val($(val).find(':selected').data('year'));
 	
 }
 function showCCDetails(val)
@@ -461,21 +448,60 @@ function closePayment()
 	$('.loader').removeClass('active');
 	$('#paymentmodal').removeClass('active');
 }
+function displayInfo()
+{
+	alert("Your payment is being processed.");
+	alert("Please do not close this window or press the browser back button until submission is complete");
+}
 function clearConsole()
 {
 	document.getElementById("ccform").reset(); 
 }
 </script>
+<!-- Paypal Express -->
+<script>
+// paypal.Button.render({
+//     env: 'sandbox', // change for production if app is live,
 
+// 	client: {
+//         sandbox:    'ASb1ZbVxG5ZFzCWLdYLi_d1-k5rmSjvBZhxP2etCxBKXaJHxPba13JJD_D3dTNriRbAv3Kp_72cgDvaZ',
+//         //production: 'AaBHKJFEej4V6yaArjzSx9cuf-UYesQYKqynQVCdBlKuZKawDDzFyuQdidPOBSGEhWaNQnnvfzuFB9SM'
+//     },
+
+//     commit: true, // Show a 'Pay Now' button
+
+//     style: {
+//     	color: 'gold',
+//     	size: 'small'
+//     },
+
+//     payment: function(data, actions) {
+//         return actions.payment.create({
+//             payment: {
+//                 transactions: [
+//                     {
+//                     	//total purchase
+//                         amount: { 
+//                         	total: parseFloat(total).toFixed(2), 
+//                         	currency: 'USD' 
+//                         }
+//                     }
+//                 ]
+//             }
+//         });
+//     },
+
+//     onAuthorize: function(data, actions) {
+//         return actions.payment.execute().then(function(payment) {
+// 			window.location = 'sales.php?pay='+payment.id;
+//         });
+//     },
+
+// }, '#paypal-button');
+</script>
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="loader">
   <img id="loading-image" src="assets/images/loading.gif" alt="Loading..." />
-  <br><br>
-	Your payment is being processed.
-	<br>
-	Please do not close this window or press the browser back button
-	<br>
-	until submission is complete
 </div>
 
 <div id="paymentmodal" class="modal-wrapper">
@@ -488,7 +514,7 @@ function clearConsole()
             </div>
             <div class="modal-content" style="padding: 10px 0 110px 0">
                 <form id="ccform">
-					<div class="products" style="padding:10px;max-height: 650px;overflow-y: auto;">
+					<div class="products" style="padding:10px;max-height: 550px;overflow-y: auto;">
           				<div class="card-details">
             				<h3 class="title">Credit Card Details</h3>
 							<div class="row">
@@ -508,30 +534,30 @@ function clearConsole()
 								</div>
 								<div class="row" id="show_card_list" style="display:none;padding:15px;">
 									<div class="form-group col-sm-6">
-										<label for="card_holder_name_new">Card Holder Name</label>
-										<input id="card_holder_name_new" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder Name" aria-describedby="basic-addon1" readonly>
+										<label for="card_holder_name">Card Holder Name</label>
+										<input id="card_holder_name" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder Name" aria-describedby="basic-addon1" readonly>
 									</div>
 									<div class="form-group col-sm-6">
 										<label for="">Expiration Date</label>
 										<div class="input-group expiration-date" style="width:100%;">
 										<div class="form-group col-sm-5" style="padding:0px !important;">
-											<input id="ccmonth_new" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder Name" aria-describedby="basic-addon1" readonly>
+											<input id="ccmonth" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder Name" aria-describedby="basic-addon1" readonly>
 										</div>
 										<div class="form-group col-sm-1" style="padding:7px;">
 										<span class="date-separator">/</span>
 										</div>
 										<div class="form-group col-sm-5" style="padding:0px !important;">
-											<input id="ccyear_new" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder Name" aria-describedby="basic-addon1" readonly>
+											<input id="ccyear" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder Name" aria-describedby="basic-addon1" readonly>
 										</div>
 										</div>
 									</div>
 									<div class="form-group col-sm-8">
 										<label for="card_number">Card Number</label>
-										<input id="card_number_new" type="text" class="form-control" placeholder="Card Number" aria-label="Card Holder" aria-describedby="basic-addon1"  onkeyup="checkCCFormat();" max-length="12" readonly>
+										<input id="card_number" type="text" class="form-control" placeholder="Card Number" aria-label="Card Holder" aria-describedby="basic-addon1"  onkeyup="checkCCFormat();" max-length="12" readonly>
 									</div>
 									<div class="form-group col-sm-4">
 										<label for="cvc">CVC</label>
-										<input id="cvc_new" type="password" class="form-control" placeholder="CVC" aria-label="Card Holder" aria-describedby="basic-addon1" inputmode="numeric" minlength="3" maxlength="3" >
+										<input id="cvc" type="password" class="form-control" placeholder="CVC" aria-label="Card Holder" aria-describedby="basic-addon1" inputmode="numeric" minlength="3" maxlength="3" >
 									</div>
 								</div>
 							</div>
@@ -593,32 +619,32 @@ function clearConsole()
 								<div class="form-group col-sm-6">
 									<label>Name</label>
 									<br>
-									<input type="text" class="shippingname form-control item-detail-input" name="shippingname" placeholder="Shipping Name">
+									<input class="shippingname form-control item-detail-input" name="shippingname" placeholder="Shipping Name">
 								</div>
 								<div class="form-group col-sm-6">
 									<label>Mobile</label>
 									<br>
-									<input type="text" class="shippingmobile form-control item-detail-input" name="shippingmobile" placeholder="Shipping Receipent Mobile">
+									<input class="shippingmobile form-control item-detail-input" name="shippingmobile" placeholder="Shipping Receipent Mobile">
 								</div>
 								<div class="form-group col-sm-12">
 									<label>Address 1</label>
 									<br>
-									<input type="text" class="shippingaddress1 form-control item-detail-input" name="shippingaddress1" placeholder="Shipping Address1">
+									<input class="shippingaddress1 form-control item-detail-input" name="shippingaddress1" placeholder="Shipping Address1">
 								</div>
 								<div class="form-group col-sm-12">
 									<label>Address 2</label>
 									<br>
-									<input type="text" class="shippingaddress2 form-control item-detail-input" name="shippingaddress2" placeholder="Shipping Address2">
+									<input class="shippingaddress2 form-control item-detail-input" name="shippingaddress2" placeholder="Shipping Address2">
 								</div>
 								<div class="form-group col-sm-6">
 									<label>City</label>
 									<br>
-									<input type="text" class="shippingcity form-control item-detail-input" name="shippingcity" placeholder="Shipping City">
+									<input class="shippingcity form-control item-detail-input" name="shippingcity" placeholder="Shipping City">
 								</div>
 								<div class="form-group col-sm-6">
 									<label>Postcode</label>
 									<br>
-									<input type="text" class="shippingpostcode form-control item-detail-input" name="shippingpostcode" placeholder="Shipping Postcode">
+									<input class="shippingpostcode form-control item-detail-input" name="shippingpostcode" placeholder="Shipping Postcode">
 								</div>
 								<div class="form-group col-sm-6">
 									<label>State</label>
@@ -646,7 +672,7 @@ function clearConsole()
 								<div class="form-group col-sm-6">
 									<label>Country</label>
 									<br>
-									<input type="text" class="shippingcountry form-control item-detail-input" name="shippingcountry" placeholder="Shipping Country" value="Malaysia">
+									<input class="shippingcountry form-control item-detail-input" name="shippingcountry" placeholder="Shipping Country" value="Malaysia">
 								</div>
 								
 							</div>
@@ -706,14 +732,14 @@ function clearConsole()
 		        		</table>
 	        			</div>
 	        		</div>
-					<?php
+	        		<?php
 	        			if(isset($_SESSION['user'])){
 	        				echo "
 								<h1 class='page-header'>Payment Method</h1>
 								<div class='row'>
 	        					
 	        						<div class='col-sm-3'>
-	        							<button class='payment-cc' id='payment-cc' onclick='ccPaymentMethod()'>Credit Card</button>
+	        							<button class='payment-cc' id='payment-cc' onclick='ccPaymentMethod(); displayInfo()'>Credit Card</button>
 									</div>
 								</div>
 						";
