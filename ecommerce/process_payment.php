@@ -1,11 +1,12 @@
 <?php
 //PRASATH
+include 'includes/session.php';
 $card_holder_name = strip_tags($_POST['name']);
 $card_number = strip_tags($_POST['number']);
 $expiration_month = strip_tags($_POST['ccmonth']);
 $expiration_year = strip_tags($_POST['ccyear']);
 $cvc = strip_tags($_POST['cvc']);
-
+$date = date('Y-m-d H:i:s');
 // Validate form data
 $errors = array();
 if (!preg_match('/^[A-Za-z\' ]+$/', $card_holder_name)) {
@@ -32,14 +33,32 @@ if (!empty($errors)) {
 }
 else
 {
-$card_number = 'CC - '.$card_number;
+    $conn = $pdo->open();
+$card_number_label = 'CC - '.$card_number;
 $hashed_cvv = password_hash($card_number, PASSWORD_DEFAULT);
 
 $response = array(
     "status"    => true,
     "msg" => 'Proceed with payment process',
-    "data" => $card_number
+    "data" => $card_number_label
 );
+$stmt = $conn->prepare("SELECT * FROM payment_card WHERE user_id=:user AND card_num=:card_num");
+$stmt->execute(['user'=>$user['id'], 'card_num'=>$card_number]);
+// $stmt->debugDumpParams();
+$count = $stmt->rowCount();
+// echo $count;
+// exit;
+if($count > 0)
+{
+    echo 'Already added into the payment_card table';
+}
+else
+{
+    $stmt = $conn->prepare("INSERT INTO payment_card (user_id, card_name, exp_month, exp_year, card_num, card_verify, created_at) VALUES (:user_id, :card_name, :exp_month, :exp_year, :card_num, :card_verify, :created_at)");
+			$stmt->execute(['user_id'=>$user['id'], 'card_name'=>$card_holder_name, 'exp_month'=>$expiration_month, 'exp_year'=>$expiration_year, 'card_num'=>$card_number, 'card_verify'=>'1', 'created_at'=>$date]);
+}
+
+
 }
 echo json_encode($response);
 exit;

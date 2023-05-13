@@ -5,6 +5,14 @@
 	}
 ?>
 <?php include 'includes/header.php'; ?>
+<style>
+	p, td
+	{ color:black !important;}
+	.center
+	{
+		text-align:center;
+	}
+</style>
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
 
@@ -67,27 +75,18 @@
 	        		</div>
 	        		<div class="box box-solid">
 	        			<div class="box-header with-border">
-	        				<h4 class="box-title"><b>Transaction History</b></h4>
+	        				<h4 class="box-title"><i class="fa fa-calendar"></i> <b>Transaction History</b></h4>
+							<!-- PRASATH -->
 	        			</div>
-						<div class="pull-right">
-							<form method="POST" class="form-inline" action="sales_print.php">
-							<div class="input-group">
-								<div class="input-group-addon">
-								<i class="fa fa-calendar"></i>
-								</div>
-								<input type="text" class="form-control pull-right col-sm-8" id="reservation" name="date_range">
-							</div>
-							<button type="submit" class="btn btn-success btn-sm btn-flat" name="print"><span class="glyphicon glyphicon-print"></span> Print</button>
-							</form>
-						</div>
 	        			<div class="box-body">
 	        				<table class="table table-bordered" id="example1">
 	        					<thead>
 	        						<th class="hidden"></th>
 	        						<th>Date</th>
 	        						<th>Transaction#</th>
-	        						<th>Amount</th>
-	        						<th>Full Details</th>
+	        						<th class='center'>Amount</th>
+	        						<th class="center">Order Status</th>
+	        						<th class="center">Full Details</th>
 	        					</thead>
 	        					<tbody>
 	        					<?php
@@ -100,6 +99,14 @@
 	        								$stmt2 = $conn->prepare("SELECT * FROM details LEFT JOIN products ON products.id=details.product_id WHERE sales_id=:id");
 	        								$stmt2->execute(['id'=>$row['id']]);
 	        								$total = 0;
+											if($row['orderStatus'] == 'Delivered')
+											{
+												$statusclass = 'green !important';
+											}
+											else
+											{
+												$statusclass = '#d9500f !important';
+											}
 	        								foreach($stmt2 as $row2){
 	        									$subtotal = $row2['price']*$row2['quantity'];
 	        									$total += $subtotal;
@@ -109,8 +116,9 @@
 	        										<td class='hidden'></td>
 	        										<td>".date('M d, Y', strtotime($row['sales_date']))."</td>
 	        										<td>".$row['pay_id']."</td>
-	        										<td>RM ".number_format($total, 2)."</td>
-	        										<td><button class='btn btn-sm btn-flat btn-info transact' data-id='".$row['id']."'><i class='fa fa-search'></i> View</button></td>
+	        										<td class='center'>RM ".number_format($total, 2)."</td>
+	        										<td class='center' style='text-transform:uppercase;text-align:center;color:".$statusclass.";'>".$row['orderStatus']."</td>
+	        										<td class='center'><button class='btn btn-sm btn-flat btn-info transact' data-id='".$row['id']."'><i class='fa fa-search'></i> View</button></td>
 	        									</tr>
 	        								";
 	        							}
@@ -141,51 +149,9 @@
 </div>
 
 <?php include 'includes/scripts.php'; ?>
-<!-- Date Picker -->
 <script>
 $(function(){
-  //Date picker
-  $('#datepicker_add').datepicker({
-    autoclose: true,
-    format: 'yyyy-mm-dd'
-  })
-  $('#datepicker_edit').datepicker({
-    autoclose: true,
-    format: 'yyyy-mm-dd'
-  })
-
-  //Timepicker
-  $('.timepicker').timepicker({
-    showInputs: false
-  })
-
-  //Date range picker
-  $('#reservation').daterangepicker()
-  //Date range picker with time picker
-  $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
-  //Date range as a button
-  $('#daterange-btn').daterangepicker(
-    {
-      ranges   : {
-        'Today'       : [moment(), moment()],
-        'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-        'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-        'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-      },
-      startDate: moment().subtract(29, 'days'),
-      endDate  : moment()
-    },
-    function (start, end) {
-      $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-    }
-  )
-  
-});
-</script>
-<script>
-$(function(){
+	// PRASATH
 	$(document).on('click', '.transact', function(e){
 		e.preventDefault();
 		$('#transaction').modal('show');
@@ -198,6 +164,9 @@ $(function(){
 			success:function(response){
 				$('#date').html(response.date);
 				$('#transid').html(response.transaction);
+				$('#ship_name').html(response.ship_name);
+				$('#ship_num').html(response.ship_num);
+				$('#ship_address').html(response.ship_address);
 				$('#detail').prepend(response.list);
 				$('#total').html(response.total);
 			}
@@ -208,6 +177,21 @@ $(function(){
 	    $('.prepend_items').remove();
 	});
 });
+
+function printInvoice()
+{
+	let invoiceid = $("#transid").html();
+	window.open('tcpdf/examples/print_invoice.php?id="'+invoiceid+'"',"_blank");
+
+	// $.ajax({
+	// 		type: 'POST',
+	// 		url: 'tcpdf/examples/print_invoice.php',
+	// 		data: {id:invoiceid},
+	// 		dataType: 'json',
+	// 		success: function(response){
+	// 		}
+	// 	});
+}	
 </script>
 </body>
 </html>
