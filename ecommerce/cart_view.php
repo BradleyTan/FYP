@@ -234,6 +234,10 @@ $(function(){
 		var id = $(this).data('id');
 		var qty = $('#qty_'+id).val();
 		qty++;
+		if(qty>10){
+			qty = 10;
+		}
+		
 		$('#qty_'+id).val(qty);
 		$.ajax({
 			type: 'POST',
