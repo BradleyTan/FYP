@@ -21,7 +21,7 @@
     </div><!-- /.footer-logo -->
 
      <div class="module-body m-t-20">
-        <p class="about-us" id="color">ShopEz is an online grocery store that offers a wide selection of high-quality products with excellent customer service. They prioritize convenience and make grocery shopping easy and efficient.</p>
+        <p class="about-us" id="color">ShopEz is an online grocery store that offers a wide selection of high-quality products with excellent customer service. We prioritize convenience and make grocery shopping easy and efficient.</p>
     
     </div><!-- /.module-body -->
 
@@ -93,7 +93,7 @@
                     </span>
                 </div>
                 <div class="media-body">
-                    <span><p id="color">shopez@shopping.com</p></span>
+                    <span><p id="color">shopez@shopping.com.my</p></span>
                 </div>
             </li>
               
