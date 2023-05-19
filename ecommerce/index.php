@@ -73,6 +73,7 @@
 		       									<img src='".$image."' width='100%' height='230px' class='thumbnail'>
 		       									<h5><a href='product.php?product=".$row['slug']."'>".$row['name']."</a></h5>
 		       								</div>
+											<br><br>
 		       								<div class='box-footer'>
 		       									<b>RM ".number_format($row['price'], 2)."</b>
 		       								</div>
