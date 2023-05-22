@@ -3,17 +3,14 @@
   $where = '';
   if(isset($_GET['category'])){
     $catid = $_GET['category'];
-    $where = 'WHERE category_id ='.$catid;
+    $where = 'WHERE category_id =' . $catid;
   }
-
 ?>
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-
   <?php include 'includes/navbar.php'; ?>
   <?php include 'includes/menubar.php'; ?>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -65,17 +62,14 @@
                       <option value="0">ALL</option>
                       <?php
                         $conn = $pdo->open();
-
                         $stmt = $conn->prepare("SELECT * FROM category");
                         $stmt->execute();
-
                         foreach($stmt as $crow){
                           $selected = ($crow['id'] == $catid) ? 'selected' : ''; 
                           echo "
                             <option value='".$crow['id']."' ".$selected.">".$crow['name']."</option>
                           ";
                         }
-
                         $pdo->close();
                       ?>
                     </select>
@@ -105,6 +99,10 @@
                       foreach($stmt as $row){
                         $image = (!empty($row['photo'])) ? '../images/'.$row['photo'] : '../images/noimage.jpg';
                         $counter = ($row['date_view'] == $now) ? $row['counter'] : 0;
+                        $quantity = $row['products_quantity'];
+                        if ($quantity < 0) {
+                          $quantity = 0; // Set the quantity to 0
+                        }
                         echo "
                           <tr>
                             <td>".$row['name']."</td>
@@ -114,7 +112,7 @@
                             </td>
                             <td><a href='#description' data-toggle='modal' class='btn btn-info btn-sm btn-flat desc' data-id='".$row['id']."'><i class='fa fa-search'></i> View</a></td>
                             <td>RM ".number_format($row['price'], 2)."</td>
-                            <td>".$row['products_quantity']."</td>
+                            <td>".$quantity."</td>
                             <td>".$counter."</td>
                             <td>
                               <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
@@ -136,15 +134,12 @@
         </div>
       </div>
     </section>
-     
   </div>
-  	<?php include 'includes/footer.php'; ?>
-    <?php include 'includes/products_modal.php'; ?>
-    <?php include 'includes/products_modal2.php'; ?>
-
+  <?php include 'includes/footer.php'; ?>
+  <?php include 'includes/products_modal.php'; ?>
+  <?php include 'includes/products_modal2.php'; ?>
 </div>
 <!-- ./wrapper -->
-
 <?php include 'includes/scripts.php'; ?>
 <script>
 $(function(){
@@ -154,7 +149,6 @@ $(function(){
     var id = $(this).data('id');
     getRow(id);
   });
-
 
   $(document).on('click', '.photo', function(e){
     e.preventDefault();
@@ -212,6 +206,7 @@ function getRow(id){
     }
   });
 }
+
 function getCategory(){
   $.ajax({
     type: 'POST',
