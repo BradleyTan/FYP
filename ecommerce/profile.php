@@ -5,14 +5,6 @@
 	}
 ?>
 <?php include 'includes/header.php'; ?>
-<style>
-	p, td
-	{ color:black !important;}
-	.center
-	{
-		text-align:center;
-	}
-</style>
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
 
