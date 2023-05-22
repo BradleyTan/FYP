@@ -28,6 +28,35 @@
 
 ?>
 <?php include 'includes/header.php'; ?>
+<head>
+<style>
+  .shipping-row {
+    display: flex;
+    align-items: center;
+  }
+  
+  .shipping-label {
+    margin-right: 10px;
+  }
+  
+  .shipping-charge {
+    color: red;
+	font-weight: bold;
+  }
+</style>
+<script>
+  // Check if the current page is the login page
+  var currentPage = window.location.pathname;
+  var isLoginPage = currentPage.includes("login.php");
+
+  if (!isLoginPage) {
+    // Allow back navigation for all pages except the login page
+    window.onbeforeunload = null;
+    window.onunload = null;
+  }
+</script>
+
+</head>
 <body class="hold-transition skin-blue layout-top-nav">
 <script>
 (function(d, s, id) {
@@ -37,6 +66,7 @@
 	js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12';
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
 </script>
 <div class="wrapper">
 
@@ -57,7 +87,7 @@
 		            	<div class="col-sm-6">
 		            		<img src="<?php echo (!empty($product['photo'])) ? 'images/'.$product['photo'] : 'images/noimage.jpg'; ?>" width="100%" class="zoom" data-magnify-src="images/large-<?php echo $product['photo']; ?>">
 		            		<br><br>
-		            		<form class="form-inline" id="productForm">
+		            		<form class="form-inline" id="productForm" method="GET">
 									<?php
 										if($product['products_quantity'] == 0)
 										{
@@ -83,12 +113,14 @@
 										
 							            <input type="hidden" value="<?php echo $product['prodid']; ?>" name="id">
 										<?php
+										
+
 											if($product['products_quantity'] > 0)
-											{
+											{	
 												echo'</div>
 													<button type="submit" class="btn btn-primary btn-lg btn-flat"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-												</div>';
-											
+													<p style="color: red">' . $product['products_quantity'] . ' quantity remaining</p>
+    											</div>';
 											}
 											else
 											{
@@ -104,6 +136,10 @@
 		            		<p><b>Category:</b> <a href="category.php?category=<?php echo $product['cat_slug']; ?>"><?php echo $product['catname']; ?></a></p>
 		            		<p><b>Description:</b></p>
 		            		<p><?php echo $product['description']; ?></p>
+							<div class="shipping-row">
+								<span class="shipping-label"><b>SHIPPING CHARGE:</b></span>
+								<h5 class="shipping-charge">Free</h5>
+							</div>
 		            	</div>
 		            </div>
 		            <br>

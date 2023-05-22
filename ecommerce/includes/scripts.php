@@ -13,7 +13,6 @@
 <script src="dist/js/adminlte.min.js"></script>
 <!-- CK Editor -->
 <script src="bower_components/ckeditor/ckeditor.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
   $(function () {
     // Datatable
@@ -42,7 +41,6 @@ $('#navbar-search-input').focusout(function(event){
     $('#searchBtn').hide();
   }
 });
-
 
   getCart();
 
@@ -82,11 +80,16 @@ function getCart(){
 		success: function(response){
 			$('#cart_menu').html(response.list);
 			$('.cart_count').html(response.count);
+      //GOT ADD THIS LINE
+			if(response.count == 0)
+			{
+				$("#payment-cc").prop("disabled",true);
+			}//UNTIL HERE
 		}
 	});
 }
 </script>
-
+	
 	<script>
 
 $(document).ready(function(){

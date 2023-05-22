@@ -262,7 +262,13 @@ $(function(){
 });
 
 function verifyData(e) {
-   	e.preventDefault();
+	e.preventDefault();
+	let card_selection = $('input[name="card_selection"]:checked').val();
+	let d = '_new';
+	if(card_selection == '2')
+	{
+		d = '';
+	}
    	var name = $("#card_holder_name").val();  
 	var number = $("#card_number").val();  
 	var cvc = $("#cvc").val();  
@@ -313,7 +319,7 @@ function verifyData(e) {
             return;
 		}			
 
-	$.ajax({  
+		$.ajax({  
 			type:"POST",  
 			url:"process_payment.php",  
 			data:"number="+number+'&name='+name+'&cvc='+cvc+'&ccmonth='+ccmonth+'&ccyear='+ccyear+'&address='+shippinginfo,  
@@ -332,8 +338,15 @@ function verifyData(e) {
 						},
 						dataType: 'json',
 						success: function(response){
-							window.location = 'profile.php';
-						}
+								if(response.status)
+								{
+									if (confirm('Would you like to save your address for the next transaction?')) {
+										saveAddress();
+									} else {
+										window.location.href = 'profile.php';
+									}
+								}
+							}
 					});
 				} else {
 					return;
@@ -353,7 +366,6 @@ function verifyData(e) {
 		}  
 		});
 }
-
 // $("#checkout").click(function(e) {
 // 	var name = $("#card_holder_name").val();  
 //     var number = $("#card_number").val();  
@@ -372,7 +384,33 @@ function verifyData(e) {
 //       });
 // });
 
-
+function saveAddress()
+{
+	let shippinginfo = {
+        name: $('.shippingname').val(),
+        street1: $('.shippingaddress1').val(),
+        street2: $('.shippingaddress2').val(),
+        city: $('.shippingcity').val(),
+        postcode: $('.shippingpostcode').val(),
+        state: $('.shippingstate').val(),
+        country: $('.shippingcountry').val(),
+        mobile: $('.shippingmobile').val()
+    }
+	$.ajax({
+		type: 'POST',
+		url: 'sales.php',
+		data: {
+			address: shippinginfo,
+		},
+		dataType: 'json',
+		success: function(response){
+				if(response.status)
+				{
+					window.location.href = 'profile.php';
+				}
+			}
+	});
+}
 
 function getDetails(){
 	$.ajax({
@@ -389,10 +427,11 @@ function getDetails(){
 function showCardDetails(val)
 {
 	$('#show_card_list').show();	
-	$('#card_number').val($(val).find(':selected').data('num'));
-	$('#card_holder_name').val($(val).find(':selected').data('name'));
-	$('#ccmonth').val($(val).find(':selected').data('month'));
-	$('#ccyear').val($(val).find(':selected').data('year'));
+	$('#card_number_new').val($(val).find(':selected').data('num'));
+	$('#card_holder_name_new').val($(val).find(':selected').data('name'));
+	let month = ('0' + $(val).find(':selected').data('month')).slice(-2);
+	$('#ccmonth_new').val(month);
+	$('#ccyear_new').val($(val).find(':selected').data('year'));
 	
 }
 function showCCDetails(val)
@@ -438,7 +477,20 @@ function ccPaymentMethod()
 				$('#div_card_new').show();
 			}
 			else
-			{
+			{ // got add this code
+				$.ajax({
+					type: 'POST',
+					url: 'getAddress.php',
+					dataType: 'json',
+					success:function(response){
+						$('#shippingname').html(response.ship_name);
+						$('#shipping').html(response.ship_num);
+						$('#ship_address').html(response.ship_address);
+						$('#detail').prepend(response.list);
+						$('#total').html(response.total);
+						$('#sales_id').val(response.sales_id);
+					}
+				});
 				$("#card_list").append(response);
 				$("#card_old").prop("checked", true);				
 				$('#div_card_old').show();
@@ -538,30 +590,30 @@ function clearConsole()
 								</div>
 								<div class="row" id="show_card_list" style="display:none;padding:15px;">
 									<div class="form-group col-sm-6">
-										<label for="card_holder_name">Card Holder Name</label>
-										<input id="card_holder_name" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder Name" aria-describedby="basic-addon1" readonly>
+										<label for="card_holder_name_new">Card Holder Name</label>
+										<input id="card_holder_name_new" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder Name" aria-describedby="basic-addon1" readonly>
 									</div>
 									<div class="form-group col-sm-6">
 										<label for="">Expiration Date</label>
 										<div class="input-group expiration-date" style="width:100%;">
 										<div class="form-group col-sm-5" style="padding:0px !important;">
-											<input id="ccmonth" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder Name" aria-describedby="basic-addon1" readonly>
+											<input id="ccmonth_new" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder Name" aria-describedby="basic-addon1" readonly>
 										</div>
 										<div class="form-group col-sm-1" style="padding:7px;">
 										<span class="date-separator">/</span>
 										</div>
 										<div class="form-group col-sm-5" style="padding:0px !important;">
-											<input id="ccyear" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder Name" aria-describedby="basic-addon1" readonly>
+											<input id="ccyear_new" type="text" class="form-control" placeholder="Card Holder" aria-label="Card Holder Name" aria-describedby="basic-addon1" readonly>
 										</div>
 										</div>
 									</div>
 									<div class="form-group col-sm-8">
 										<label for="card_number">Card Number</label>
-										<input id="card_number" type="text" class="form-control" placeholder="Card Number" aria-label="Card Holder" aria-describedby="basic-addon1"  onkeyup="checkCCFormat();" max-length="12" readonly>
+										<input id="card_number_new" type="text" class="form-control" placeholder="Card Number" aria-label="Card Holder" aria-describedby="basic-addon1"  onkeyup="checkCCFormat();" max-length="12" readonly>
 									</div>
 									<div class="form-group col-sm-4">
 										<label for="cvc">CVC</label>
-										<input id="cvc" type="password" class="form-control" placeholder="CVC" aria-label="Card Holder" aria-describedby="basic-addon1" inputmode="numeric" minlength="3" maxlength="3" >
+										<input id="cvc_new" type="password" class="form-control" placeholder="CVC" aria-label="Card Holder" aria-describedby="basic-addon1" inputmode="numeric" minlength="3" maxlength="3" >
 									</div>
 								</div>
 							</div>
@@ -618,50 +670,65 @@ function clearConsole()
 								
 							</div>
 							<h3 class="title">Shipping Details</h3>
-
+							<!--gOT add INPUT TYPE TEXT-->
 							<div class="row">
 								<div class="form-group col-sm-6">
 									<label>Name</label>
 									<br>
-									<input class="shippingname form-control item-detail-input" name="shippingname" placeholder="Shipping Name">
+									<input type="text" class="shippingname form-control item-detail-input" id="shippingname" name="shippingname" placeholder="Shipping Name">
 								</div>
 								<div class="form-group col-sm-6">
 									<label>Mobile</label>
 									<br>
-									<input class="shippingmobile form-control item-detail-input" name="shippingmobile" placeholder="Shipping Receipent Mobile">
+									<input type="text" class="shippingmobile form-control item-detail-input"  id="shippingmobile" name="shippingmobile" placeholder="Shipping Receipent Mobile">
 								</div>
 								<div class="form-group col-sm-12">
 									<label>Address 1</label>
 									<br>
-									<input class="shippingaddress1 form-control item-detail-input" name="shippingaddress1" placeholder="Shipping Address1">
+									<input type="text" class="shippingaddress1 form-control item-detail-input" id="shippingaddress1" name="shippingaddress1" placeholder="Shipping Address1">
 								</div>
 								<div class="form-group col-sm-12">
 									<label>Address 2</label>
 									<br>
-									<input class="shippingaddress2 form-control item-detail-input" name="shippingaddress2" placeholder="Shipping Address2">
+									<input type="text" class="shippingaddress2 form-control item-detail-input" id="shippingaddress2" name="shippingaddress2" placeholder="Shipping Address2">
 								</div>
 								<div class="form-group col-sm-6">
 									<label>City</label>
 									<br>
-									<input class="shippingcity form-control item-detail-input" name="shippingcity" placeholder="Shipping City">
+									<input type="text" class="shippingcity form-control item-detail-input" id="shippingcity" name="shippingcity" placeholder="Shipping City">
 								</div>
 								<div class="form-group col-sm-6">
 									<label>Postcode</label>
 									<br>
-									<input class="shippingpostcode form-control item-detail-input" name="shippingpostcode" placeholder="Shipping Postcode">
+									<input type="text" class="shippingpostcode form-control item-detail-input" id="shippingpostcode" name="shippingpostcode" placeholder="Shipping Postcode">
 								</div>
 								<div class="form-group col-sm-6">
 									<label>State</label>
 									<br>
 									<select class="shippingstate form-control" name="shippingstate">
 										<option value="">Select State</option>
+										<option value="Johor">Johor</option>
+										<option value="Kedah">Kedah</option>
+										<option value="Kelantan">Kelantan</option>
+										<option value="Kuala Lumpur">Kuala Lumpur</option>
+										<option value="Putrajaya">Putrajaya</option>
+										<option value="Labuan">Labuan</option>
 										<option value="Melaka">Melaka</option>
+										<option value="Negeri Sembilan">Negeri Sembilan</option>
+										<option value="Pahang">Pahang</option>
+										<option value="Perak">Perak</option>
+										<option value="Perlis">Perlis</option>
+										<option value="Pulau Pinang">Pulau Pinang</option>
+										<option value="Sabah">Sabah</option>
+										<option value="Sarawak">Sarawak</option>
+										<option value="Selangor">Selangor</option>
+										<option value="Terengganu">Terengganu</option>
 									</select>
 								</div>
 								<div class="form-group col-sm-6">
 									<label>Country</label>
 									<br>
-									<input class="shippingcountry form-control item-detail-input" name="shippingcountry" placeholder="Shipping Country" value="Malaysia">
+									<input type="text" class="shippingcountry form-control item-detail-input" id="shippingcountry"  name="shippingcountry" placeholder="Shipping Country" value="Malaysia">
 								</div>
 								
 							</div>
@@ -726,7 +793,6 @@ function clearConsole()
 	        				echo "
 								<h1 class='page-header'>Payment Method</h1>
 								<div class='row'>
-	        					
 	        						<div class='col-sm-3'>
 	        							<button class='payment-cc' id='payment-cc' onclick='ccPaymentMethod(); displayInfo()'>Credit Card</button>
 									</div>
@@ -752,6 +818,7 @@ function clearConsole()
   	<?php $pdo->close(); ?>
   	<?php include 'includes/footer.php'; ?>
 </div>
+
 
 </body>
 </html>
