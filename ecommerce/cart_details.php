@@ -32,49 +32,58 @@
 				$total += $subtotal;
 				$maxQuantity = min($row['products_quantity'], 10); // Maximum quantity allowed for purchase
 				$output .= "
-					<tr>
-						<td><button type='button' data-id='".$row['cartid']."' class='btn btn-danger btn-flat cart_delete'><i class='fa fa-remove'></i></button></td>
-						<td><img src='".$image."' width='30px' height='30px'></td>
-						<td>".$row['name']."
-							<p style='color: red'>" . $row['products_quantity'] . " quantity remaining</p>
-						</td>
-						<td>RM ".number_format($row['price'], 2)."</td>
-						<td class='input-group'>
-							<span class='input-group-btn'>
-								<button type='button' id='minus_".$row['cartid']."' class='btn btn-default btn-flat minus' data-id='".$row['cartid']."'><i class='fa fa-minus'></i></button>
-							</span>
-							<input type='number' class='form-control' value='".min($row['quantity'], $maxQuantity)."' id='qty_".$row['cartid']."' min='1' max='".$maxQuantity."'>
-							<span class='input-group-btn'>
-								<button type='button' id='add_".$row['cartid']."' class='btn btn-default btn-flat add' data-id='".$row['cartid']."'><i class='fa fa-plus'></i></button>
-							</span>
-						</td>
-						<td>RM ".number_format($subtotal, 2)."</td>
-					</tr>
-					<script>
-					document.getElementById('add_".$row['cartid']."').addEventListener('click', function() {
-						var quantityInput = document.getElementById('qty_".$row['cartid']."');
-						var currentQuantity = parseInt(quantityInput.value);
-						var maxQuantity = parseInt(quantityInput.getAttribute('max'));
+				<tr>
+				<td><button type='button' data-id='" . $row['cartid'] . "' class='btn btn-danger btn-flat cart_delete'><i class='fa fa-remove'></i></button></td>
+				<td><img src='" . $image . "' width='30px' height='30px'></td>
+				<td>" . $row['name'] . "
+					<p style='color: red'>" . $row['products_quantity'] . " quantity remaining</p>
+				</td>
+				<td>RM " . number_format($row['price'], 2) . "</td>
+				<td class='input-group'>
+					<span class='input-group-btn'>
+						<button type='button' id='minus_" . $row['cartid'] . "' class='btn btn-default btn-flat minus' data-id='" . $row['cartid'] . "'><i class='fa fa-minus'></i></button>
+					</span>
+					<input type='number' class='form-control' value='" . min($row['quantity'], $maxQuantity) . "' id='qty_" . $row['cartid'] . "' min='1' max='" . $maxQuantity . "'>
+					<span class='input-group-btn'>
+						<button type='button' id='add_" . $row['cartid'] . "' class='btn btn-default btn-flat add' data-id='" . $row['cartid'] . "'><i class='fa fa-plus'></i></button>
+					</span>
+				</td>
+				<td id='subtotal_" . $row['cartid'] . "'>RM " . number_format($subtotal, 2) . "</td>
+			</tr>
+			<script>
+			document.getElementById('add_".$row['cartid']."').addEventListener('click', function() {
+				var quantityInput = document.getElementById('qty_".$row['cartid']."');
+				var currentQuantity = parseInt(quantityInput.value);
+				var maxQuantity = parseInt(quantityInput.getAttribute('max'));
+				var addButton = document.getElementById('add_" . $row['cartid'] . "');
+			
+				if (currentQuantity >= maxQuantity) {
+					// Display an error message or provide visual feedback to indicate the maximum quantity has been reached
+					addButton.disabled = true;
+					alert('Maximum quantity reached. You cannot add more of this product.');
+					return;		
+				} else {
+					// Increment the quantity
+					var newQuantity = currentQuantity + 1;
+					if (newQuantity > maxQuantity) {
+						newQuantity = maxQuantity; // Set the new quantity to the maximum limit
+					}
 					
-						if (currentQuantity === maxQuantity) {
-							// Display an error message or provide visual feedback to indicate the maximum quantity has been reached
-							alert('Maximum quantity reached. You cannot add more of this product.');
-						} else {
-							// Increment the quantity
-							var newQuantity = currentQuantity + 1;
-							quantityInput.value = newQuantity;
-							
-							// Calculate and update the subtotal only if the new quantity is within the maximum limit
-							if (newQuantity <= maxQuantity) {
-								var price = parseFloat(".$row['price'].");
-								var subtotal = price * newQuantity;
-								var subtotalElement = document.getElementById('subtotal_".$row['cartid']."');
-								subtotalElement.textContent = 'RM ' + subtotal.toFixed(2);
-							}
-						}
-					});
-					
-				</script>
+					// Calculate and update the subtotal only if the new quantity is within the maximum limit
+					if (newQuantity <= maxQuantity) {
+						quantityInput.value = newQuantity;
+						var price = parseFloat(".$row['price'].");
+						var subtotal = price * newQuantity;
+						var subtotalElement = document.getElementById('subtotal_".$row['cartid']."');
+						subtotalElement.textContent = 'RM ' + subtotal.toFixed(2);
+					}
+				}
+			});
+			
+			
+			
+			
+			</script>
 				";
 			}
 			$output .= "
@@ -116,23 +125,40 @@
 					</td>
 					<td>RM ".number_format($subtotal, 2)."</td>
 				</tr>
-				// can delete the following lines
+				
 				<script>
-					document.getElementById('add_".$row['cartid']."').addEventListener('click', function() {
-						var quantityInput = document.getElementById('qty_".$row['cartid']."');
-						var currentQuantity = parseInt(quantityInput.value);
-						var maxQuantity = parseInt(quantityInput.getAttribute('max'));
-			
-						if (currentQuantity === maxQuantity) {
-							// Display an error message or provide visual feedback to indicate the maximum quantity has been reached
-							alert('Maximum quantity reached. You cannot add more of this product.');
-							--currentQuantity;
-						} else {
-							// Increment the quantity
-							var newQuantity = currentQuantity + 1;
-							quantityInput.value = newQuantity;
+				document.getElementById('add_".$row['cartid']."').addEventListener('click', function() {
+					var quantityInput = document.getElementById('qty_".$row['cartid']."');
+					var currentQuantity = parseInt(quantityInput.value);
+					var maxQuantity = parseInt(quantityInput.getAttribute('max'));
+					var addButton = document.getElementById('add_" . $row['cartid'] . "');
+				
+					if (currentQuantity >= maxQuantity) {
+						// Display an error message or provide visual feedback to indicate the maximum quantity has been reached
+						addButton.disabled = true;
+						alert('Maximum quantity reached. You cannot add more of this product.');
+						return;		
+					} else {
+						// Increment the quantity
+						var newQuantity = currentQuantity + 1;
+						if (newQuantity > maxQuantity) {
+							newQuantity = maxQuantity; // Set the new quantity to the maximum limit
 						}
-					});
+						
+						// Calculate and update the subtotal only if the new quantity is within the maximum limit
+						if (newQuantity <= maxQuantity) {
+							quantityInput.value = newQuantity;
+							var price = parseFloat(".$row['price'].");
+							var subtotal = price * newQuantity;
+							var subtotalElement = document.getElementById('subtotal_".$row['cartid']."');
+							subtotalElement.textContent = 'RM ' + subtotal.toFixed(2);
+						}
+					}
+				});
+				
+				
+				
+				
 				</script>
 			";
 			
