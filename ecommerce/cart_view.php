@@ -235,6 +235,10 @@ $(function(){
 		var id = $(this).data('id');
 		var qty = $('#qty_'+id).val();
 		qty++;
+		if(qty>10){
+			qty = 10;
+		}
+		
 		$('#qty_'+id).val(qty);
 		$.ajax({
 			type: 'POST',
@@ -568,7 +572,7 @@ function clearConsole()
             </div>
             <div class="modal-content" style="padding: 10px 0 110px 0">
                 <form id="ccform">
-					<div class="products" style="padding:10px;max-height: 650px;overflow-y: auto;">
+					<div class="products" style="padding:10px;max-height: 550px;overflow-y: auto;">
           				<div class="card-details">
             				<h3 class="title">Credit Card Details</h3>
 							<div class="row">
