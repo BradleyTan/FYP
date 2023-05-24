@@ -26,7 +26,9 @@
   <nav class="navbar navbar-static-top">
     <div class="container">
       <div class="navbar-header">
-        <a href="index.php" class="navbar-brand"><img src="images/shopezlogo.png" alt="" width="50" height="25"></a>
+      <a href="index.php" class="navbar-brand" style="display: flex; justify-content: center; align-items: center;">
+    <img src="images/shopezlogo.png" alt="" width="55" height="30" style="margin: 0 auto;">
+      </a>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
           <i class="fa fa-bars"></i>
         </button>
