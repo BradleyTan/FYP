@@ -1,16 +1,17 @@
 <?php
+// PRASATH
 	include 'includes/session.php';
 
-	if(isset($_GET['pay'])){
-		$payid = $_GET['pay'];
+	if(isset($_POST['pay'])){
+		$payid = $_POST['pay'];
+		$address = $_POST['address'];
 		$date = date('Y-m-d');
 
 		$conn = $pdo->open();
-
 		try{
 			
-			$stmt = $conn->prepare("INSERT INTO sales (user_id, pay_id, sales_date) VALUES (:user_id, :pay_id, :sales_date)");
-			$stmt->execute(['user_id'=>$user['id'], 'pay_id'=>$payid, 'sales_date'=>$date]);
+			$stmt = $conn->prepare("INSERT INTO sales (user_id, pay_id, sales_date, ship_contact, ship_name, street1, street2, city, postcode, state, country, orderStatus) VALUES (:user_id, :pay_id, :sales_date, :ship_contact, :ship_name, :street1, :street2, :city, :postcode, :state, :country, :orderstatus)");
+			$stmt->execute(['user_id'=>$user['id'], 'pay_id'=>$payid, 'sales_date'=>$date, 'ship_name'=>$address['name'], 'ship_contact'=>$address['mobile'], 'street1'=>$address['street1'], 'street2'=>$address['street2'], 'city'=>$address['city'], 'postcode'=>$address['postcode'], 'country'=>$address['country'], 'state'=>$address['state'], 'orderstatus'=>'In Process']);
 			$salesid = $conn->lastInsertId();
 			
 			try{
@@ -39,7 +40,11 @@
 
 		$pdo->close();
 	}
-	
-	header('location: profile.php');
+	$response = array(
+        "status"    => true,
+        "msg" => 'Success'
+    );
+	echo json_encode($response);
+exit;
 	
 ?>

@@ -50,7 +50,7 @@ $count = $stmt->rowCount();
 // exit;
 if($count > 0)
 {
-    echo 'Already added into the payment_card table';
+
 }
 else
 {

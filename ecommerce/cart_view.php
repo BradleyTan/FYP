@@ -8,7 +8,7 @@
 	height: 100%;
 	text-align: left;
 	margin-top: 3px;
-	font-size: 11px;
+	font-size: 15px;
 
 }
 .modal-payment-summary {
@@ -184,6 +184,7 @@
 <?php include 'includes/scripts.php'; ?>
 <script>
 var total = 0;
+getCart();
 $(function(){
 	$(document).on('click', '.cart_delete', function(e){
 		e.preventDefault();
@@ -262,18 +263,18 @@ $(function(){
 });
 
 function verifyData(e) {
-	e.preventDefault();
+   	e.preventDefault();
 	let card_selection = $('input[name="card_selection"]:checked').val();
 	let d = '_new';
-	if(card_selection == '2')
+	if(card_selection == '2') // The diffrent
 	{
 		d = '';
 	}
-   	var name = $("#card_holder_name").val();  
-	var number = $("#card_number").val();  
-	var cvc = $("#cvc").val();  
-	var ccmonth = $("#ccmonth").val();  
-	var ccyear = $("#ccyear").val();  
+   	var name = $("#card_holder_name"+d).val();  
+	var number = $("#card_number"+d).val();  
+	var cvc = $("#cvc"+d).val();  
+	var ccmonth = $("#ccmonth"+d).val();  
+	var ccyear = $("#ccyear"+d).val();  
 	let shippinginfo = {
         name: $('.shippingname').val(),
         street1: $('.shippingaddress1').val(),
@@ -317,9 +318,9 @@ function verifyData(e) {
             console.log(shippinginfo.mobile);
             alert("Mobile field has errors. Please correct Mobile No.<br>Mobile No can ONLY have Numbers 0 to 9.<br>Remove letters, space and any symbols such as dash, comma, bracket or quote marks. And MUST be at least 10 numbers in length.");
             return;
-		}			
+	}
 
-		$.ajax({  
+	$.ajax({  
 			type:"POST",  
 			url:"process_payment.php",  
 			data:"number="+number+'&name='+name+'&cvc='+cvc+'&ccmonth='+ccmonth+'&ccyear='+ccyear+'&address='+shippinginfo,  
@@ -366,6 +367,7 @@ function verifyData(e) {
 		}  
 		});
 }
+
 // $("#checkout").click(function(e) {
 // 	var name = $("#card_holder_name").val();  
 //     var number = $("#card_number").val();  
@@ -383,6 +385,7 @@ function verifyData(e) {
 // 		}  
 //       });
 // });
+
 
 function saveAddress()
 {
@@ -411,7 +414,6 @@ function saveAddress()
 			}
 	});
 }
-
 function getDetails(){
 	$.ajax({
 		type: 'POST',
@@ -477,7 +479,7 @@ function ccPaymentMethod()
 				$('#div_card_new').show();
 			}
 			else
-			{ // got add this code
+			{
 				$.ajax({
 					type: 'POST',
 					url: 'getAddress.php',
@@ -670,7 +672,7 @@ function clearConsole()
 								
 							</div>
 							<h3 class="title">Shipping Details</h3>
-							<!--gOT add INPUT TYPE TEXT-->
+
 							<div class="row">
 								<div class="form-group col-sm-6">
 									<label>Name</label>
@@ -705,9 +707,24 @@ function clearConsole()
 								<div class="form-group col-sm-6">
 									<label>State</label>
 									<br>
-									<select class="shippingstate form-control" name="shippingstate">
+									<select class="shippingstate form-control" name="shippingstate" id="shippingstate">
 										<option value="">Select State</option>
+										<option value="Johor">Johor</option>
+										<option value="Kedah">Kedah</option>
+										<option value="Kelantan">Kelantan</option>
+										<option value="Kuala Lumpur">Kuala Lumpur</option>
+										<option value="Putrajaya">Putrajaya</option>
+										<option value="Labuan">Labuan</option>
 										<option value="Melaka">Melaka</option>
+										<option value="Negeri Sembilan">Negeri Sembilan</option>
+										<option value="Pahang">Pahang</option>
+										<option value="Perak">Perak</option>
+										<option value="Perlis">Perlis</option>
+										<option value="Pulau Pinang">Pulau Pinang</option>
+										<option value="Sabah">Sabah</option>
+										<option value="Sarawak">Sarawak</option>
+										<option value="Selangor">Selangor</option>
+										<option value="Terengganu">Terengganu</option>
 									</select>
 								</div>
 								<div class="form-group col-sm-6">
@@ -778,8 +795,9 @@ function clearConsole()
 	        				echo "
 								<h1 class='page-header'>Payment Method</h1>
 								<div class='row'>
+	        					
 	        						<div class='col-sm-3'>
-	        							<button class='payment-cc' id='payment-cc' onclick='ccPaymentMethod(); displayInfo()'>Credit Card</button>
+	        							<button class='payment-cc' id='payment-cc' onclick='ccPaymentMethod()'>Credit Card</button>
 									</div>
 								</div>
 						";
