@@ -266,7 +266,7 @@ function verifyData(e) {
    	e.preventDefault();
 	let card_selection = $('input[name="card_selection"]:checked').val();
 	let d = '_new';
-	if(card_selection == '2') // The diffrent
+	if(card_selection == '2') 
 	{
 		d = '';
 	}
@@ -709,22 +709,7 @@ function clearConsole()
 									<br>
 									<select class="shippingstate form-control" name="shippingstate" id="shippingstate">
 										<option value="">Select State</option>
-										<option value="Johor">Johor</option>
-										<option value="Kedah">Kedah</option>
-										<option value="Kelantan">Kelantan</option>
-										<option value="Kuala Lumpur">Kuala Lumpur</option>
-										<option value="Putrajaya">Putrajaya</option>
-										<option value="Labuan">Labuan</option>
 										<option value="Melaka">Melaka</option>
-										<option value="Negeri Sembilan">Negeri Sembilan</option>
-										<option value="Pahang">Pahang</option>
-										<option value="Perak">Perak</option>
-										<option value="Perlis">Perlis</option>
-										<option value="Pulau Pinang">Pulau Pinang</option>
-										<option value="Sabah">Sabah</option>
-										<option value="Sarawak">Sarawak</option>
-										<option value="Selangor">Selangor</option>
-										<option value="Terengganu">Terengganu</option>
 									</select>
 								</div>
 								<div class="form-group col-sm-6">

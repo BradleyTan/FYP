@@ -11,7 +11,7 @@
 		try{
 			
 			$stmt = $conn->prepare("INSERT INTO sales (user_id, pay_id, sales_date, ship_contact, ship_name, street1, street2, city, postcode, state, country, orderStatus) VALUES (:user_id, :pay_id, :sales_date, :ship_contact, :ship_name, :street1, :street2, :city, :postcode, :state, :country, :orderstatus)");
-			$stmt->execute(['user_id'=>$user['id'], 'pay_id'=>$payid, 'sales_date'=>$date, 'ship_name'=>$address['name'], 'ship_contact'=>$address['mobile'], 'street1'=>$address['street1'], 'street2'=>$address['street2'], 'city'=>$address['city'], 'postcode'=>$address['postcode'], 'country'=>$address['country'], 'state'=>$address['state'], 'orderstatus'=>'In Process']);
+			$stmt->execute(['user_id'=>$user['id'], 'pay_id'=>$payid, 'sales_date'=>$date, 'ship_name'=>$address['name'], 'ship_contact'=>$address['mobile'], 'street1'=>$address['street1'], 'street2'=>$address['street2'], 'city'=>$address['city'], 'postcode'=>$address['postcode'], 'country'=>$address['country'], 'state'=>$address['state'], 'orderstatus'=>'Pending']);
 			$salesid = $conn->lastInsertId();
 			
 			try{
