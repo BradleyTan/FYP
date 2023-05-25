@@ -697,7 +697,11 @@ function clearConsole()
 								<div class="form-group col-sm-6">
 									<label>City</label>
 									<br>
-									<input type="text" class="shippingcity form-control item-detail-input" id="shippingcity" name="shippingcity" placeholder="Shipping City">
+									<!--<input type="text" class="shippingcity form-control item-detail-input" id="shippingcity" name="shippingcity" placeholder="Shipping City">-->
+									<select class="shippingcity form-control" id="shippingcity" name="shippingcity" placeholder="Shipping City">
+										<option value="">Select city</option>
+										<option value="Melaka Tengah">Melaka Tengah</option>
+									</select>
 								</div>
 								<div class="form-group col-sm-6">
 									<label>Postcode</label>
