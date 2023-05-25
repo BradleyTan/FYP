@@ -466,6 +466,7 @@ function ccPaymentMethod()
 	$('#paymentmodal').addClass('active');
 	$('.total-amounts').html(parseFloat(total).toFixed(2));
 	//Get CC Details
+	$("#card_list").html('');
 	$.ajax({
 		type: 'POST',
 		url: 'paymentcard_list.php',
