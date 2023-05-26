@@ -723,6 +723,11 @@ function clearConsole()
 									<input type="text" class="shippingcountry form-control item-detail-input" id="shippingcountry"  name="shippingcountry" placeholder="Shipping Country" value="Malaysia">
 								</div>
 								
+								<div class="form-group col-sm-12">
+								     <input type="checkbox" id="Terms and Conditions" name="Terms" value="Terms" required>
+									 <label for="checkbox"> I agree to the <a href="term.html">Terms and Conditions</a>.</label><br><br>
+								</div>
+
 							</div>
 							<div class="row">
 								<div class="form-group col-sm-12">
