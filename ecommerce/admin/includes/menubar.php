@@ -42,19 +42,9 @@
           <li><a href="products.php"><i class="fa fa-circle-o"></i> Product List</a></li>
           <li><a href="category.php"><i class="fa fa-circle-o"></i> Category</a></li>
         </ul>
-        <a href="#">
-        <i class="fa fa-first-order"></i>
-          <span>Order</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="todays-orders.php"><i class="fa fa-circle-o"></i> Today's Orders</a></li>
-          <li><a href="pending-orders.php"><i class="fa fa-circle-o"></i> Pending Orders</a></li>
-          <li><a href="delivered-orders.php"><i class="fa fa-circle-o"></i> Delivery Orders</a></li>
-        </ul>
-      </li>
+      </li>  
+      <li><a href="orders.php"><i class="fa fa-first-order"></i><span>Orders</span></a></li>
+      
     </ul>
   </section>
   <!-- /.sidebar -->
