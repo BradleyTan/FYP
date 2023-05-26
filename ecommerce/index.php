@@ -1,11 +1,6 @@
 <?php include 'includes/session.php'; ?>
 <?php include 'includes/header.php'; ?>
 <head>
-	<script>
-		function preventBack(){window.history.forward()};
-		setTimeout("preventBack()",0);
-		window.onunload = function(){null;}
-    </script>	
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
