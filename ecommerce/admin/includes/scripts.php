@@ -71,6 +71,30 @@ $(function(){
     CKEDITOR.replace('editor1')
     CKEDITOR.replace('editor2')
   });
-</script>
 
+</script>
+  <!--
+  function showOrders(){
+    $.ajax({
+        url:"order_details.php",
+        method:"post",
+        data:{record:1},
+        success:function(data){
+            $('.allContent-section').html(data);
+        }
+    });
+}
+
+function ChangeOrderStatus(id){
+    $.ajax({  
+       url:"updateOrderStatus.php",
+       method:"post",
+       data:{record:id},
+       success:function(data){
+           alert('Order Status updated successfully');
+           $('form').trigger('reset');
+           showOrders();
+       }
+   });
+}-->
 
