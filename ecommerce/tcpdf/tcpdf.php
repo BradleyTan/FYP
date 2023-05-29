@@ -455,13 +455,13 @@ class TCPDF {
 	protected $PageBreakTrigger;
 
 	/**
-	 * Flag set when processing page header.
+	 * Flag set when pending page header.
 	 * @protected
 	 */
 	protected $InHeader = false;
 
 	/**
-	 * Flag set when processing page footer.
+	 * Flag set when pending page footer.
 	 * @protected
 	 */
 	protected $InFooter = false;
