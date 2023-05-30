@@ -700,7 +700,7 @@ function clearConsole()
 									<br>
 									<!--<input type="text" class="shippingcity form-control item-detail-input" id="shippingcity" name="shippingcity" placeholder="Shipping City">-->
 									<select class="shippingcity form-control" id="shippingcity" name="shippingcity" placeholder="Shipping City">
-										<option value="">Select city</option>
+										<option value="">Select District</option>
 										<option value="Melaka Tengah">Melaka Tengah</option>
 									</select>
 								</div>
