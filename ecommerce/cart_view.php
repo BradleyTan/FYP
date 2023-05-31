@@ -516,6 +516,8 @@ function clearConsole()
 {
 	document.getElementById("ccform").reset(); 
 }
+
+
 </script>
 <!-- Paypal Express -->
 <script>
@@ -700,8 +702,8 @@ function clearConsole()
 									<br>
 									<!--<input type="text" class="shippingcity form-control item-detail-input" id="shippingcity" name="shippingcity" placeholder="Shipping City">-->
 									<select class="shippingcity form-control" id="shippingcity" name="shippingcity" placeholder="Shipping City">
-										<option value="">Select District</option>
-										<option value="Melaka Tengah">Melaka Tengah</option>
+										<option value="">Select City</option>
+										<option value="Melaka">Melaka</option>
 									</select>
 								</div>
 								<div class="form-group col-sm-6">
