@@ -214,7 +214,7 @@
     </div>
 </div> 
 
-<!-- Deactivate User Modal -->
+<!-- Inactivate User Modal -->
 <div class="modal fade" id="inactivate">
     <div class="modal-dialog">
         <div class="modal-content">
