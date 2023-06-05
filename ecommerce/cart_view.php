@@ -368,24 +368,6 @@ function verifyData(e) {
 		});
 }
 
-// $("#checkout").click(function(e) {
-// 	var name = $("#card_holder_name").val();  
-//     var number = $("#card_number").val();  
-//     var cvc = $("#cvc").val();  
-//     var ccmonth = $("#ccmonth").val();  
-//     var ccyear = $("#ccyear").val();  
-// 	console.log(name);
-// 	$.ajax({  
-//          type:"POST",  
-//          url:"process_payment.php",  
-//          data:"number="+number+'&name='+name+'&cvc='+cvc+'&ccmonth='+ccmonth+'&ccyear='+ccyear,  
-//          success:function(data){  
-// 			console.log(data);
-// 			e.preventDefault();
-// 		}  
-//       });
-// });
-
 
 function saveAddress()
 {
@@ -517,48 +499,17 @@ function clearConsole()
 	document.getElementById("ccform").reset(); 
 }
 
+function toggleButtonVisibility() {
+    var checkbox = document.getElementById("Terms");
+    var button = document.getElementById("checkout");
 
-</script>
-<!-- Paypal Express -->
-<script>
-// paypal.Button.render({
-//     env: 'sandbox', // change for production if app is live,
+    if (checkbox.checked) {
+      button.style.display = "block";
+    } else {
+      button.style.display = "none";
+    }
+  }
 
-// 	client: {
-//         sandbox:    'ASb1ZbVxG5ZFzCWLdYLi_d1-k5rmSjvBZhxP2etCxBKXaJHxPba13JJD_D3dTNriRbAv3Kp_72cgDvaZ',
-//         //production: 'AaBHKJFEej4V6yaArjzSx9cuf-UYesQYKqynQVCdBlKuZKawDDzFyuQdidPOBSGEhWaNQnnvfzuFB9SM'
-//     },
-
-//     commit: true, // Show a 'Pay Now' button
-
-//     style: {
-//     	color: 'gold',
-//     	size: 'small'
-//     },
-
-//     payment: function(data, actions) {
-//         return actions.payment.create({
-//             payment: {
-//                 transactions: [
-//                     {
-//                     	//total purchase
-//                         amount: { 
-//                         	total: parseFloat(total).toFixed(2), 
-//                         	currency: 'USD' 
-//                         }
-//                     }
-//                 ]
-//             }
-//         });
-//     },
-
-//     onAuthorize: function(data, actions) {
-//         return actions.payment.execute().then(function(payment) {
-// 			window.location = 'sales.php?pay='+payment.id;
-//         });
-//     },
-
-// }, '#paypal-button');
 </script>
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="loader">
@@ -700,7 +651,6 @@ function clearConsole()
 								<div class="form-group col-sm-6">
 									<label>City</label>
 									<br>
-									<!--<input type="text" class="shippingcity form-control item-detail-input" id="shippingcity" name="shippingcity" placeholder="Shipping City">-->
 									<select class="shippingcity form-control" id="shippingcity" name="shippingcity" placeholder="Shipping City">
 										<option value="">Select City</option>
 										<option value="Melaka">Melaka</option>
@@ -726,14 +676,14 @@ function clearConsole()
 								</div>
 								
 								<div class="form-group col-sm-12">
-								     <input type="checkbox" id="Terms and Conditions" name="Terms" value="Terms" required>
-									 <label for="checkbox"> I agree to the <a href="term.html">Terms and Conditions</a>.</label><br><br>
+								     <input type="checkbox" id="Terms" name="Terms" value="Terms" required onchange="toggleButtonVisibility()">
+									 <label for="checkbox" id="TermsLabel"> I agree to the <a href="term.html">Terms and Conditions</a>.</label><br><br>
 								</div>
 
 							</div>
 							<div class="row">
 								<div class="form-group col-sm-12">
-									<button type="button" id="checkout" onclick="verifyData(event);" class="btn btn-primary btn-block">Proceed</button>
+									<button type="button" id="checkout" onclick="verifyData(event);" class="btn btn-primary btn-block" style="display: none;">Proceed</button>
 								</div>
 							</div>
           				</div>						
@@ -812,7 +762,6 @@ function clearConsole()
 	        	</div>
 	        </div>
 	      </section>
-	     
 	    </div>
 	  </div>
   	<?php $pdo->close(); ?>
