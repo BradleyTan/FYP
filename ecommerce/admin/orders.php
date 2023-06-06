@@ -191,8 +191,12 @@
       success:function(response){
         $('#date').html(response.date);
         $('#transid').html(response.transaction);
+        $('#ship_name').html(response.ship_name);
+		$('#ship_num').html(response.ship_num);
+		$('#ship_address').html(response.ship_address);
         $('#detail').prepend(response.list);
         $('#total').html(response.total);
+        $('#sales_id').val(response.sales_id);
       }
     });
   });
