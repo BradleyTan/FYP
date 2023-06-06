@@ -38,7 +38,7 @@
         		<span class="glyphicon glyphicon-lock form-control-feedback"></span>
       		</div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" name="repassword" placeholder="Re-type password" required>
+            <input type="password" class="form-control" name="repassword" placeholder="Re-type password" <input type="password" class="form-control" id="pass" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
             <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
           </div>
       		<div class="row">
