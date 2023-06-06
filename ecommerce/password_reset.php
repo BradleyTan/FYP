@@ -17,7 +17,7 @@
 }
   </style>
 </head>
-<body class="hold-transition login-page">
+<body>
 <div class="login-box">
   	<?php
       if(isset($_SESSION['error'])){
