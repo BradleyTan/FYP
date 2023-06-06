@@ -6,6 +6,17 @@
   }
 ?>
 <?php include 'includes/header.php'; ?>
+<head>
+<style>
+    body{
+    background-image: url("images/1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+  </style>
+</head>
 <body class="hold-transition login-page">
 <div class="login-box">
   	<?php
