@@ -13,14 +13,14 @@
                   	<label for="email" class="col-sm-3 control-label">Email</label>
 
                   	<div class="col-sm-9">
-                    	<input type="text" class="form-control" id="email" name="email" value="<?php echo $admin['email']; ?>">
+                    	<input type="text" class="form-control" id="email" name="email" value="<?php echo $admin['email']; ?>"title="Your email address should be in the format: name@example.com" required>
                   	</div>
                 </div>
                 <div class="form-group">
                     <label for="password" class="col-sm-3 control-label">Password</label>
 
                     <div class="col-sm-9"> 
-                      <input type="password" class="form-control" id="password" name="password" value="<?php echo $admin['password']; ?>">
+                      <input type="password" class="form-control" id="password" name="password" value="<?php echo $admin['password']; ?>"pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                     </div>
                 </div>
                 <div class="form-group">

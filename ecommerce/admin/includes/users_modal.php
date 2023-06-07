@@ -84,14 +84,14 @@
                     <label for="edit_email" class="col-sm-3 control-label">Email</label>
 
                     <div class="col-sm-9">
-                      <input type="email" class="form-control" id="edit_email" name="email">
+                      <input type="email" class="form-control" id="edit_email" name="email" title="Your email address should be in the format: name@example.com" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="edit_password" class="col-sm-3 control-label">Password</label>
 
                     <div class="col-sm-9">
-                      <input type="password" class="form-control" id="edit_password" name="password">
+                      <input type="password" class="form-control" id="edit_password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                     </div>
                 </div>
                 <div class="form-group">
