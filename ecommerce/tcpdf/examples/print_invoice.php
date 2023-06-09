@@ -35,6 +35,7 @@ foreach($stmt as $row){
 }
 
 $output['total'] = '<b>RM '.number_format($total, 2).'<b>';
+$PDFHEADER = '#INV:'.$output['transaction'];
 $pdo->close();
 require_once('tcpdf_include.php');
 if(isset($_GET['id']))
@@ -50,7 +51,7 @@ if(isset($_GET['id']))
     $pdf->setSubject('Invoice ID #'.$_GET['id']);
 
     // set default header data
-    $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, 'INVOICE', PDF_HEADER_STRING);
+    $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, 'INVOICE', $PDFHEADER);
 
     // set header and footer fonts
     $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -94,10 +95,13 @@ if(isset($_GET['id']))
             <div class="modal-header">
               <h4 class="modal-title"><b>Transaction Full Details</b></h4>
             </div>
-            <div class="modal-body">
+        <div class="modal-body">
               <p>
                 Date: <span id="date_invoice">'.$output['date'].'</span>
               </p>
+              <p>
+              <span class="pull-right"  align="right">Invoice ID#: <span id="id_invoice">'.$id.'</span></span> 
+             </p>
               <p>
                 <span class="pull-right"  align="right">Transaction#: <span id="transid_invoice">'.$output['transaction'].'</span></span> 
               </p>
@@ -176,3 +180,4 @@ else
 {
     echo "Oops, no invoice found";
 }
+  
