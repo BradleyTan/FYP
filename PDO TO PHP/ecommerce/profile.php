@@ -83,49 +83,40 @@
 	        					</thead>
 	        					<tbody>
 	        					<?php
-	        						$conn = $pdo->open();
-
-	        						try{
-	        							$stmt = $conn->prepare("SELECT * FROM sales WHERE user_id=:user_id ORDER BY sales_date DESC");
-	        							$stmt->execute(['user_id'=>$user['id']]);
-	        							foreach($stmt as $row){
-	        								$stmt2 = $conn->prepare("SELECT * FROM details LEFT JOIN products ON products.id=details.product_id WHERE sales_id=:id");
-	        								$stmt2->execute(['id'=>$row['id']]);
-	        								$total = 0;
-											if($row['orderStatus'] == 'Delivered')
-											{
-												$statusclass = 'green !important';
-											}
-                      else if($row['orderStatus'] == 'Shipping')
-                      {
-                        $statusclass = 'orange !important';
-                      } 
-											else
-											{
-												$statusclass = '#d9500f !important';
-											}
-	        								foreach($stmt2 as $row2){
-	        									$subtotal = $row2['price']*$row2['quantity'];
-	        									$total += $subtotal;
-	        								}
-	        								echo "
-	        									<tr>
-	        										<td class='hidden'></td>
-	        										<td>".date('M d, Y', strtotime($row['sales_date']))."</td>
-	        										<td>".$row['pay_id']."</td>
-	        										<td class='center'>RM ".number_format($total, 2)."</td>
-	        										<td class='center' style='text-transform:uppercase;text-align:center;color:".$statusclass.";'>".$row['orderStatus']."</td>
-	        										<td class='center'><button class='btn btn-sm btn-flat btn-info transact' data-id='".$row['id']."'><i class='fa fa-search'></i> View</button></td>
-	        									</tr>
-	        								";
+	        						$conn = include 'includes/conn.php';
+	        						$stmt = $conn->prepare("SELECT * FROM sales WHERE user_id=:user_id ORDER BY sales_date DESC");
+	        						$stmt->execute(['user_id' => $user['id']]);
+	        						$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	        						foreach ($result as $row) {
+	        							$query2 = "SELECT * FROM details LEFT JOIN products ON products.id=details.product_id WHERE sales_id=:id";
+	        							$stmt2 = $conn->prepare($query2);
+	        							$stmt2->execute(['id' => $row['id']]);
+	        							$result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+	        							$total = 0;
+	        							$statusclass = '';
+	        							if ($row['orderStatus'] == 'Delivered') {
+	        								$statusclass = 'green !important';
+	        							} elseif ($row['orderStatus'] == 'Shipping') {
+	        								$statusclass = 'orange !important';
+	        							} else {
+	        								$statusclass = '#d9500f !important';
 	        							}
-
+	        							foreach ($result2 as $row2) {
+	        								$subtotal = $row2['price'] * $row2['quantity'];
+	        								$total += $subtotal;
+	        							}
+	        							echo "
+	        								<tr>
+	        									<td class='hidden'></td>
+	        									<td>" . date('M d, Y', strtotime($row['sales_date'])) . "</td>
+	        									<td>" . $row['pay_id'] . "</td>
+	        									<td class='center'>RM " . number_format($total, 2) . "</td>
+	        									<td class='center' style='text-transform:uppercase;text-align:center;color:" . $statusclass . ";'>" . $row['orderStatus'] . "</td>
+	        									<td class='center'><button class='btn btn-sm btn-flat btn-info transact' data-id='" . $row['id'] . "'><i class='fa fa-search'></i> View</button></td>
+	        								</tr>
+	        							";
 	        						}
-        							catch(PDOException $e){
-										echo "There is some problem in connection: " . $e->getMessage();
-									}
-
-	        						$pdo->close();
+	        						$conn = null;
 	        					?>
 	        					</tbody>
 	        				</table>

@@ -88,7 +88,7 @@
                 <ul class="menu" id="cart_menu">
                 </ul>
               </li>
-              <li class="footer"><a href="cart_view.php">Go to Cart</a></li> <!--Rmb to change this to cart_view.php-->
+              <li class="footer"><a href="cart_view.php">Go to Cart</a></li>
             </ul>
           </li>
           <?php

@@ -96,10 +96,10 @@
 											{
 												$statusclass = 'green !important';
 											}
-                      else if($row['orderStatus'] == 'Shipping')
-                      {
-                        $statusclass = 'orange !important';
-                      } 
+											else if($row['orderStatus'] == 'Shipping')
+											{
+												$statusclass = 'orange !important';
+											} 
 											else
 											{
 												$statusclass = '#d9500f !important';
