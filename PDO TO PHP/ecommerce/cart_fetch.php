@@ -1,35 +1,36 @@
 <?php
 	include 'includes/session.php';
-	$conn = $pdo->open();
+	include 'includes/conn.php'; 
 
 	$output = array('list'=>'','count'=>0);
 
 	if(isset($_SESSION['user'])){
-		try{
-			$stmt = $conn->prepare("SELECT *, products.name AS prodname, category.name AS catname FROM cart LEFT JOIN products ON products.id=cart.product_id LEFT JOIN category ON category.id=products.category_id WHERE user_id=:user_id");
-			$stmt->execute(['user_id'=>$user['id']]);
-			foreach($stmt as $row){
-				$output['count']++;
-				$image = (!empty($row['photo'])) ? 'images/'.$row['photo'] : 'images/noimage.jpg';
-				$productname = (strlen($row['prodname']) > 30) ? substr_replace($row['prodname'], '...', 27) : $row['prodname'];
-				$output['list'] .= "
-					<li>
+		$user_id = $_SESSION['user']['id'];
+		$query = "SELECT *, products.name AS prodname, category.name AS catname 
+				  FROM cart 
+				  LEFT JOIN products ON products.id=cart.product_id 
+				  LEFT JOIN category ON category.id=products.category_id 
+				  WHERE user_id='$user_id'";
+		$result = $conn->query($query);
+
+		while($row = $result->fetch_assoc()){
+			$output['count']++;
+			$image = (!empty($row['photo'])) ? 'images/'.$row['photo'] : 'images/noimage.jpg';
+			$productname = (strlen($row['prodname']) > 30) ? substr_replace($row['prodname'], '...', 27) : $row['prodname'];
+			$output['list'] .= "
+				<li>
 						<a href='product.php?product=".$row['slug']."'>
 							<div class='pull-left'>
 								<img src='".$image."' class='thumbnail' alt='User Image'>
 							</div>
 							<h4>
-		                        <b>".$row['catname']."</b>
-		                        <small>&times; ".$row['quantity']."</small>
-		                    </h4>
-		                    <p>".$productname."</p>
+	                        <b>".$row['catname']."</b>
+	                        <small>&times; ".$row['quantity']."</small>
+	                    </h4>
+	                    <p>".$productname."</p>
 						</a>
-					</li>
-				";
-			}
-		}
-		catch(PDOException $e){
-			$output['message'] = $e->getMessage();
+				</li>
+			";
 		}
 	}
 	else{
@@ -43,9 +44,13 @@
 		else{
 			foreach($_SESSION['cart'] as $row){
 				$output['count']++;
-				$stmt = $conn->prepare("SELECT *, products.name AS prodname, category.name AS catname FROM products LEFT JOIN category ON category.id=products.category_id WHERE products.id=:id");
-				$stmt->execute(['id'=>$row['productid']]);
-				$product = $stmt->fetch();
+				$product_id = $row['productid'];
+				$query = "SELECT *, products.name AS prodname, category.name AS catname 
+						  FROM products 
+						  LEFT JOIN category ON category.id=products.category_id 
+						  WHERE products.id='$product_id'";
+				$result = $conn->query($query);
+				$product = $result->fetch_assoc();
 				$image = (!empty($product['photo'])) ? 'images/'.$product['photo'] : 'images/noimage.jpg';
 				$output['list'] .= "
 					<li>
@@ -61,13 +66,11 @@
 						</a>
 					</li>
 				";
-				
 			}
 		}
 	}
 
-	$pdo->close();
+	$conn->close();
 	echo json_encode($output);
-
 ?>
 

@@ -11,11 +11,14 @@
 		'; 
 	}
 	else{
-		$conn = $pdo->open();
+		$conn = mysqli_connect("localhost", "root", "", "ecomm");
 
-		$stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM users WHERE activate_code=:code AND id=:id");
-		$stmt->execute(['code'=>$_GET['code'], 'id'=>$_GET['user']]);
-		$row = $stmt->fetch();
+		$code = $_GET['code'];
+		$userID = $_GET['user'];
+
+		$query = "SELECT *, COUNT(*) AS numrows FROM users WHERE activate_code='$code' AND id='$userID'";
+		$result = mysqli_query($conn, $query);
+		$row = mysqli_fetch_assoc($result);
 
 		if($row['numrows'] > 0){
 			if($row['status']){
@@ -28,9 +31,11 @@
 				';
 			}
 			else{
-				try{
-					$stmt = $conn->prepare("UPDATE users SET status=:status WHERE id=:id");
-					$stmt->execute(['status'=>1, 'id'=>$row['id']]);
+				$status = 1;
+				$id = $row['id'];
+
+				$updateQuery = "UPDATE users SET status='$status' WHERE id='$id'";
+				if(mysqli_query($conn, $updateQuery)){
 					$output .= '
 						<div class="alert alert-success">
 			                <h4><i class="icon fa fa-check"></i> Success!</h4>
@@ -39,11 +44,12 @@
 			            <h4>You may <a href="login.php">Login</a> or back to <a href="index.php">Homepage</a>.</h4>
 					';
 				}
-				catch(PDOException $e){
+				else{
+					$error = mysqli_error($conn);
 					$output .= '
 						<div class="alert alert-danger">
 			                <h4><i class="icon fa fa-warning"></i> Error!</h4>
-			                '.$e->getMessage().'
+			                '.$error.'
 			            </div>
 			            <h4>You may <a href="signup.php">Signup</a> or back to <a href="index.php">Homepage</a>.</h4>
 					';
@@ -62,7 +68,7 @@
 			';
 		}
 
-		$pdo->close();
+		mysqli_close($conn);
 	}
 ?>
 <?php include 'includes/header.php'; ?>

@@ -1,5 +1,5 @@
 <?php
-	include('includes/conn.php');
+	include('conn.php');
 	session_start();
 
 	if(isset($_SESSION['admin'])){
@@ -7,17 +7,18 @@
 	}
 
 	if(isset($_SESSION['user'])){
-		$conn = $pdo->open();
+		$conn = mysqli_connect("localhost", "root", "", "ecomm");
 
-		try{
-			$stmt = $conn->prepare("SELECT * FROM users WHERE id=:id");
-			$stmt->execute(['id'=>$_SESSION['user']]);
-			$user = $stmt->fetch();
+		if(!$conn){
+			echo "There is some problem in connection: " . mysqli_connect_error();
 		}
-		catch(PDOException $e){
-			echo "There is some problem in connection: " . $e->getMessage();
-		}
+		else{
+			$id = $_SESSION['user'];
+			$query = "SELECT * FROM users WHERE id='$id'";
+			$result = mysqli_query($conn, $query);
+			$user = mysqli_fetch_assoc($result);
 
-		$pdo->close();
+			mysqli_close($conn);
+		}
 	}
 ?>

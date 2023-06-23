@@ -1,11 +1,9 @@
 <?php
+$hostname = 'localhost';
+$username = 'root';
+$password = '';
+$database = 'ecomm';
 
-
-$connect= mysqli_connect("localhost","root","","ecomm");
-
-if($connect)
-{
-  echo("Connect successfully!");
-}
+$connect = mysqli_connect($hostname, $username, $password, $database);
 
 ?>

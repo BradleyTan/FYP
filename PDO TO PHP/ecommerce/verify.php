@@ -1,50 +1,52 @@
 <?php
-	include 'includes/session.php';
-	$conn = $pdo->open();
+include 'includes/session.php';
+include 'includes/conn.php'; // Include the connection file
 
-	if(isset($_POST['login'])){
-		
-		$email = $_POST['email'];
-		$password = $_POST['password'];
+if (isset($_POST['login'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-		try{
+    $conn = mysqli_connect("localhost", "root", "", "ecomm");
 
-			$stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM users WHERE email = :email");
-			$stmt->execute(['email'=>$email]);
-			$row = $stmt->fetch();
-			if($row['numrows'] > 0){
-				if($row['status']){
-					if(password_verify($password, $row['password'])){
-						if($row['type']){
-							$_SESSION['admin'] = $row['id'];
-						}
-						else{
-							$_SESSION['user'] = $row['id'];
-						}
-					}
-					else{
-						$_SESSION['error'] = 'Incorrect Password';
-					}
-				}
-				else{
-					$_SESSION['error'] = 'Account not activated.';
-				}
-			}
-			else{
-				$_SESSION['error'] = 'Email not found';
-			}
-		}
-		catch(PDOException $e){
-			echo "There is some problem in connection: " . $e->getMessage();
-		}
+    if (!$conn) {
+        $_SESSION['error'] = mysqli_connect_error();
+        header('location: login.php');
+        exit();
+    }
 
-	}
-	else{
-		$_SESSION['error'] = 'Input login credentails first';
-	}
+    $stmt = $conn->prepare("SELECT COUNT(*) AS numrows FROM users WHERE email = ?");
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
 
-	$pdo->close();
+    if ($row['numrows'] > 0) {
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
 
-	header('location: login.php');
+        if ($row['status']) {
+            if (password_verify($password, $row['password'])) {
+                if ($row['type']) {
+                    $_SESSION['admin'] = $row['id'];
+                } else {
+                    $_SESSION['user'] = $row['id'];
+                }
+            } else {
+                $_SESSION['error'] = 'Incorrect Password';
+            }
+        } else {
+            $_SESSION['error'] = 'Account not activated.';
+        }
+    } else {
+        $_SESSION['error'] = 'Email not found';
+    }
 
-?>
+    mysqli_close($conn);
+} else {
+    $_SESSION['error'] = 'Input login credentials first';
+}
+
+header('location: login.php');

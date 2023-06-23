@@ -7,17 +7,17 @@
 	  		<ul id="trending">
 	  		<?php
 	  			$now = date('Y-m-d');
-	  			$conn = $pdo->open();
+	  			$conn = mysqli_connect("localhost", "root", "", "ecomm");
 
-	  			$stmt = $conn->prepare("SELECT * FROM products WHERE date_view=:now ORDER BY counter DESC LIMIT 10");
-	  			$stmt->execute(['now'=>$now]);
-	  			foreach($stmt as $row){
+	  			$query = "SELECT * FROM products WHERE date_view='$now' ORDER BY counter DESC LIMIT 10";
+	  			$result = mysqli_query($conn, $query);
+	  			while($row = mysqli_fetch_assoc($result)){
 	  				echo "<li><a href='product.php?product=".$row['slug']."'>".$row['name']."</a></li>";
 	  			}
 
-	  			$pdo->close();
+	  			mysqli_close($conn);
 	  		?>
-	    	<ul>
+	    	</ul>
 	  	</div>
 	</div>
 </div>
