@@ -677,7 +677,7 @@ function toggleButtonVisibility() {
 								
 								<div class="form-group col-sm-12">
 								     <input type="checkbox" id="Terms" name="Terms" value="Terms" required onchange="toggleButtonVisibility()">
-									 <label for="checkbox" id="TermsLabel"> I agree to the <a href="term.html">Terms and Conditions</a>.</label><br><br>
+									 <label for="checkbox" id="TermsLabel"> I agree to the <a href="term.php">Terms and Conditions</a>.</label><br><br>
 								</div>
 
 							</div>
