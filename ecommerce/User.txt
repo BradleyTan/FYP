@@ -27,7 +27,7 @@ $yz#Lwtbq2+!W2jZ
 /////////////////////////////////////
 Sample data
 
-Category: Laundry & Household
+New Category: Laundry & Household
 breeze.png
 downy.jpg
 
