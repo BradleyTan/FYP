@@ -24,4 +24,15 @@ Password: P'*.Ns+4EYLj:-%D
 SVK38RZMf@Ua+LI6
 $yz#Lwtbq2+!W2jZ
 
+/////////////////////////////////////
+Sample data
 
+Category: Laundry & Household
+breeze.png
+downy.jpg
+
+Category: Beverages
+100 plus.png
+
+Profile icon:
+menprofileicon.jpg
