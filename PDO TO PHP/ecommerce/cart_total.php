@@ -1,26 +1,26 @@
 <?php
 	include 'includes/session.php';
 	include 'includes/conn.php';
-
-	if(isset($_SESSION['user'])){
-		$conn = mysqli_connect("localhost", "root", "password", "ecomm");
-
-		$user_id = $_SESSION['user']['id'];
-
-		$stmt = $conn->prepare("SELECT * FROM cart LEFT JOIN products on products.id=cart.product_id WHERE user_id=?");
-		$stmt->bind_param('i', $user_id);
-		$stmt->execute();
-
-		$result = $stmt->get_result();
-
+	
+	if (isset($_SESSION['user'])) {
+		
+	
+		$user_id = $user['id'];
+	
+		$stmt = mysqli_prepare($conn, "SELECT * FROM cart LEFT JOIN products ON products.id=cart.product_id WHERE user_id=?");
+		mysqli_stmt_bind_param($stmt, "i", $user_id);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+	
 		$total = 0;
-		while($row = $result->fetch_assoc()){
+		while ($row = mysqli_fetch_assoc($result)) {
 			$subtotal = $row['price'] * $row['quantity'];
 			$total += $subtotal;
 		}
-
+	
 		mysqli_close($conn);
-
+	
 		echo json_encode($total);
 	}
-?>
+	?>
+	

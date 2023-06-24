@@ -6,9 +6,14 @@
 	$id = $_POST['id'];
 
 	if (isset($_SESSION['user'])) {
-		$stmt = $conn->prepare("DELETE FROM cart WHERE id=:id");
-		$stmt->execute(['id' => $id]);
-		$output['message'] = 'Deleted';
+		try {
+			$stmt = mysqli_prepare($conn, "DELETE FROM cart WHERE id = ?");
+			mysqli_stmt_bind_param($stmt, "i", $id);
+			mysqli_stmt_execute($stmt);
+			$output['message'] = 'Deleted';
+		} catch (Exception $e) {
+			$output['message'] = $e->getMessage();
+		}
 	} else {
 		foreach ($_SESSION['cart'] as $key => $row) {
 			if ($row['productid'] == $id) {
@@ -18,7 +23,7 @@
 		}
 	}
 
-	$conn->close();
+	mysqli_close($conn);
 	echo json_encode($output);
 
 	header('Location: cart_details.php');
