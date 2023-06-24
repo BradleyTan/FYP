@@ -4,11 +4,11 @@
 
 	$output = array('error' => false);
 
-	if (isset($_POST['id']) && isset($_POST['quantity'])) {
+	if (!empty($_POST['id']) && !empty($_POST['quantity'])) {
 		$id = $_POST['id'];
 		$quantity = $_POST['quantity'];
 
-		$stmt = $connect->prepare("SELECT products_quantity FROM products WHERE id=?");
+		$stmt = $conn->prepare("SELECT products_quantity FROM products WHERE id=?");
 		$stmt->bind_param("i", $id);
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -22,13 +22,13 @@
 				$output['message'] = "Quantity exceeds product quantity. Please select a lower quantity.";
 			} else {
 				if (isset($_SESSION['user'])) {
-					$stmt = $connect->prepare("SELECT COUNT(*) AS numrows FROM cart WHERE user_id=? AND product_id=?");
+					$stmt = $conn->prepare("SELECT COUNT(*) AS numrows FROM cart WHERE user_id=? AND product_id=?");
 					$stmt->bind_param("ii", $user['id'], $id);
 					$stmt->execute();
 					$result = $stmt->get_result();
 					$row = $result->fetch_assoc();
 					if ($row['numrows'] < 1) {
-						$stmt = $connect->prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?)");
+						$stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?)");
 						$stmt->bind_param("iii", $user['id'], $id, $quantity);
 						$stmt->execute();
 						$output['message'] = 'Item added to cart';
@@ -72,6 +72,6 @@
 		$output['message'] = 'Missing parameters (id or quantity)';
 	}
 
-	$connect->close();
+	$conn->close();
 	echo json_encode($output);
 ?>

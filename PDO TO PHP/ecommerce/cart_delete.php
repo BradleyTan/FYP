@@ -6,7 +6,7 @@
 	$id = $_POST['id'];
 
 	if (isset($_SESSION['user'])) {
-		$stmt = $connect->prepare("DELETE FROM cart WHERE id=:id");
+		$stmt = $conn->prepare("DELETE FROM cart WHERE id=:id");
 		$stmt->execute(['id' => $id]);
 		$output['message'] = 'Deleted';
 	} else {
@@ -18,7 +18,7 @@
 		}
 	}
 
-	$connect->close();
+	$conn->close();
 	echo json_encode($output);
 
 	header('Location: cart_details.php');

@@ -2,6 +2,7 @@
 <?php
 	if(!isset($_SESSION['user'])){
 		header('location: index.php');
+		exit;
 	}
 ?>
 <?php include 'includes/header.php'; ?>
@@ -83,7 +84,7 @@
 	        					</thead>
 	        					<tbody>
 	        					<?php
-	        						$conn = include 'includes/conn.php';
+	        						$conn = include 'includes/conn.php'; 
 	        						$stmt = $conn->prepare("SELECT * FROM sales WHERE user_id=:user_id ORDER BY sales_date DESC");
 	        						$stmt->execute(['user_id' => $user['id']]);
 	        						$result = $stmt->fetchAll(PDO::FETCH_ASSOC);

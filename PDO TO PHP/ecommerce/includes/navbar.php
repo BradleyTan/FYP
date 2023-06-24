@@ -7,28 +7,28 @@
   <title>Document</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <script>
-    var searchBtn = document.getElementById("searchBtn");
-    searchBtn.addEventListener("click", function(event) {
-    });
+  var searchBtn = document.getElementById("searchBtn");
+  searchBtn.addEventListener("click", function(event) {
+  });
+  const searchIcon = document.querySelector('.fa-search');
+  const searchBtn = document.getElementById('searchBtn');
+  const searchInput = document.getElementById('navbar-search-input');
 
-    const searchIcon = document.querySelector('.fa-search');
-    const searchBtn = document.getElementById('searchBtn');
-    const searchInput = document.getElementById('navbar-search-input');
-
-    searchIcon.addEventListener('click', function() {
-      searchBtn.classList.toggle('show');
-      searchInput.classList.toggle('show');
-    });
-  </script>
+  searchIcon.addEventListener('click', function() {
+    searchBtn.classList.toggle('show');
+    searchInput.classList.toggle('show');
+  });
+</script>
 </head>
 <body>
+  
 <header class="main-header">
   <nav class="navbar navbar-static-top">
     <div class="container">
       <div class="navbar-header">
-        <a href="index.php" class="navbar-brand" style="display: flex; justify-content: center; align-items: center;">
-          <img src="images/shopezlogo.png" alt="" width="55" height="30" style="margin: 0 auto;">
-        </a>
+      <a href="index.php" class="navbar-brand" style="display: flex; justify-content: center; align-items: center;">
+    <img src="images/shopezlogo.png" alt="" width="55" height="30" style="margin: 0 auto;">
+      </a>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
           <i class="fa fa-bars"></i>
         </button>
@@ -42,7 +42,7 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATEGORY <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <?php
+            <?php
                 $connect = mysqli_connect("localhost", "root", "", "ecomm");
                 if ($connect) {
                   $query = "SELECT * FROM category";

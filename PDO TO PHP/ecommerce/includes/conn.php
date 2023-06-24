@@ -4,6 +4,6 @@ $username = 'root';
 $password = '';
 $database = 'ecomm';
 
-$connect = mysqli_connect($hostname, $username, $password, $database);
+$conn = mysqli_connect($hostname, $username, $password, $database);
 
 ?>

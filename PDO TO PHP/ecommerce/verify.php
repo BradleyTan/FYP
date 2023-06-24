@@ -1,6 +1,6 @@
 <?php
 include 'includes/session.php';
-include 'includes/conn.php'; // Include the connection file
+include 'includes/conn.php'; 
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];

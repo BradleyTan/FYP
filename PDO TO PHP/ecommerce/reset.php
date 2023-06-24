@@ -1,91 +1,104 @@
 <?php
-	use PHPMailer\PHPMailer\PHPMailer;
-	use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-	include 'includes/session.php';
+include 'includes/session.php';
+include 'includes/conn.php';
 
-	if(isset($_POST['reset'])){
-		$email = $_POST['email'];
+if (isset($_POST['signup'])) {
+  $firstname = $_POST['firstname'];
+  $lastname = $_POST['lastname'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $repassword = $_POST['repassword'];
 
-		$conn = $pdo->open();
+  $_SESSION['firstname'] = $firstname;
+  $_SESSION['lastname'] = $lastname;
+  $_SESSION['email'] = $email;
 
-		$stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM users WHERE email=:email");
-		$stmt->execute(['email'=>$email]);
-		$row = $stmt->fetch();
+  if ($password != $repassword) {
+    $_SESSION['error'] = 'Passwords did not match';
+    header('location: signup.php');
+  } else {
+    $conn = mysqli_connect("localhost", "root", "", "ecomm");
 
-		if($row['numrows'] > 0){
-			//generate code
-			$set='123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-			$code=substr(str_shuffle($set), 0, 15);
-			try{
-				$stmt = $conn->prepare("UPDATE users SET reset_code=:code WHERE id=:id");
-				$stmt->execute(['code'=>$code, 'id'=>$row['id']]);
-				
-				$message = "
-					<h2>Password Reset</h2>
-					<p>Your Account:</p>
-					<p>Email: ".$email."</p>
-					<p>Please click the link below to reset your password.</p>
-					<a href='http://localhost//GitHub/FYP/ecommerce/password_reset.php?code=".$code."&user=".$row['id']."'>Reset Password</a>
-				";
+    $stmt = $conn->prepare("SELECT COUNT(*) AS numrows FROM users WHERE email=?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    if ($row['numrows'] > 0) {
+      $_SESSION['error'] = 'Email already taken';
+      header('location: signup.php');
+    } else {
+      $now = date('Y-m-d');
+      $password = password_hash($password, PASSWORD_DEFAULT);
 
-				//Load phpmailer
-	    		require 'vendor/autoload.php';
+      //generate code
+      $set = '123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $code = substr(str_shuffle($set), 0, 12);
 
-	    		$mail = new PHPMailer(true);                             
-			    try {
-			        //Server settings
-			        $mail->isSMTP();                                     
-			        $mail->Host = 'smtp.gmail.com';                      
-			        $mail->SMTPAuth = true;                               
-			        $mail->Username = 'bradleytws03@gmail.com';     
-			        $mail->Password = 'sarovgabzrklkftd';                    
-			        $mail->SMTPOptions = array(
-			            'ssl' => array(
-			            'verify_peer' => false,
-			            'verify_peer_name' => false,
-			            'allow_self_signed' => true
-			            )
-			        );                         
-			        $mail->SMTPSecure = 'ssl';                           
-			        $mail->Port = 465;                                   
-					$mail->SMTPAuth = true;
-			        $mail->setFrom('bradleytws03@gmail.com');
-			        
-			        //Recipients
-			        $mail->addAddress($email);              
-			        $mail->addReplyTo('bradleytws03@gmail.com');
-			       
-			        //Content
-			        $mail->isHTML(true);                                  
-			        $mail->Subject = 'ECommerce Site Password Reset';
-					$mail->Body    = $message;
-					$mail->SMTPDebug = 2; 
-					$mail->send();
-					
+      $stmt = $conn->prepare("INSERT INTO users (email, password, firstname, lastname, activate_code, created_on) VALUES (?, ?, ?, ?, ?, ?)");
+      $stmt->bind_param("ssssss", $email, $password, $firstname, $lastname, $code, $now);
+      $stmt->execute();
+      $userid = $stmt->insert_id;
 
-			        $_SESSION['success'] = 'Password reset link sent';
-			     
-			    } 
-			    catch (Exception $e) {
-			        $_SESSION['error'] = 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo;
-			    }
-			}
-			catch(PDOException $e){
-				$_SESSION['error'] = $e->getMessage();
-			}
-		}
-		else{
-			$_SESSION['error'] = 'Email not found';
-		}
+      $message = "
+        <h2>Thank you for Registering.</h2>
+        <p>Your Account:</p>
+        <p>Email: " . $email . "</p>
+        <p>Password: " . $_POST['password'] . "</p>
+        <p>Please click the link below to activate your account.</p>
+        <a href='http://localhost//GitHub/FYP/ecommerce/activate.php?code=" . $code . "&user=" . $userid . "'>Activate Account</a>
+      ";
 
-		$pdo->close();
+      //Load phpmailer
+      require 'vendor/autoload.php';
 
-	}
-	else{
-		$_SESSION['error'] = 'Input email associated with account';
-	}
+      $mail = new PHPMailer(true);
+      try {
+        //Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'bradleytws03@gmail.com';
+        $mail->Password = 'sarovgabzrklkftd';
+        $mail->SMTPOptions = array(
+          'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+          )
+        );
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
 
-	header('location: password_forgot.php');
+        $mail->setFrom('bradleytws03@gmail.com');
 
+        //Recipients
+        $mail->addAddress($email);
+
+        //Content
+        $mail->isHTML(true);
+        $mail->Subject = 'ShopEz Sign Up';
+        $mail->Body = $message;
+
+        $mail->send();
+
+        unset($_SESSION['firstname']);
+        unset($_SESSION['lastname']);
+        unset($_SESSION['email']);
+
+        $_SESSION['success'] = 'Account created. Check your email to activate.';
+        header('location: signup.php');
+      } catch (Exception $e) {
+        $_SESSION['error'] = 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+        header('location: signup.php');
+      }
+    }
+  }
+} else {
+  $_SESSION['error'] = 'Fill up signup form first';
+  header('location: signup.php');
+}
 ?>
