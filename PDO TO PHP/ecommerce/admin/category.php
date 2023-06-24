@@ -58,7 +58,7 @@
                 </thead>
                 <tbody>
                   <?php
-                    $conn = $pdo->open();
+                    include '../includes/conn.php';
 
                     try{
                       $stmt = $conn->prepare("SELECT * FROM category");
@@ -78,7 +78,7 @@
                       echo $e->getMessage();
                     }
 
-                    $pdo->close();
+                    $conn = null; // Close the database connection
                   ?>
                 </tbody>
               </table>

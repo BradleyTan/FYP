@@ -1,5 +1,6 @@
 <?php include 'includes/session.php'; ?>
 <?php include 'includes/header.php'; ?>
+<?php include '../includes/conn.php';?>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -49,36 +50,43 @@
                 </thead>
                 <tbody>
                   <?php
-                    $conn = $pdo->open();
+                    include '../includes/conn.php';
 
-                    try{
-                      $stmt = $conn->prepare("SELECT *, sales.id AS salesid FROM sales LEFT JOIN users ON users.id=sales.user_id ORDER BY sales_date DESC");
-                      $stmt->execute();
-                      foreach($stmt as $row){
-                        $stmt = $conn->prepare("SELECT * FROM details LEFT JOIN products ON products.id=details.product_id WHERE details.sales_id=:id");
-                        $stmt->execute(['id'=>$row['salesid']]);
-                        $total = 0;
-                        foreach($stmt as $details){
-                          $subtotal = $details['price']*$details['quantity'];
-                          $total += $subtotal;
-                        }
-                        echo "
-                          <tr>
-                            <td class='hidden'></td>
-                            <td>".date('M d, Y', strtotime($row['sales_date']))."</td>
-                            <td>".$row['firstname'].' '.$row['lastname']."</td>
-                            <td>".$row['pay_id']."</td>
-                            <td>RM ".number_format($total, 2)."</td>
-                            <td><button type='button' class='btn btn-info btn-sm btn-flat transact' data-id='".$row['salesid']."'><i class='fa fa-search'></i> View</button></td>
-                          </tr>
-                        ";
+                    if ($conn->connect_error) {
+                      die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $stmt = $conn->prepare("SELECT *, sales.id AS salesid FROM sales LEFT JOIN users ON users.id=sales.user_id ORDER BY sales_date DESC");
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    while ($row = $result->fetch_assoc()) {
+                      $stmt2 = $conn->prepare("SELECT * FROM details LEFT JOIN products ON products.id=details.product_id WHERE details.sales_id=?");
+                      $stmt2->bind_param("i", $row['salesid']);
+                      $stmt2->execute();
+                      $result2 = $stmt2->get_result();
+
+                      $total = 0;
+                      while ($details = $result2->fetch_assoc()) {
+                        $subtotal = $details['price'] * $details['quantity'];
+                        $total += $subtotal;
                       }
-                    }
-                    catch(PDOException $e){
-                      echo $e->getMessage();
+
+                      echo "
+                        <tr>
+                          <td class='hidden'></td>
+                          <td>" . date('M d, Y', strtotime($row['sales_date'])) . "</td>
+                          <td>" . $row['firstname'] . ' ' . $row['lastname'] . "</td>
+                          <td>" . $row['pay_id'] . "</td>
+                          <td>RM " . number_format($total, 2) . "</td>
+                          <td><button type='button' class='btn btn-info btn-sm btn-flat transact' data-id='" . $row['salesid'] . "'><i class='fa fa-search'></i> View</button></td>
+                        </tr>
+                      ";
                     }
 
-                    $pdo->close();
+                    $stmt->close();
+                    $stmt2->close();
+                    $conn->close();
                   ?>
                 </tbody>
               </table>
@@ -89,7 +97,7 @@
     </section>
      
   </div>
-  	<?php include 'includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>
     <?php include 'includes/profile_modal.php'; ?>
 
 </div>
@@ -154,8 +162,8 @@ $(function(){
         $('#date').html(response.date);
         $('#transid').html(response.transaction);
         $('#ship_name').html(response.ship_name);
-				$('#ship_num').html(response.ship_num);
-				$('#ship_address').html(response.ship_address);
+        $('#ship_num').html(response.ship_num);
+        $('#ship_address').html(response.ship_address);
         $('#detail').prepend(response.list);
         $('#total').html(response.total);
         $('#sales_id').val(response.sales_id);

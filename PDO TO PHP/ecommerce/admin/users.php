@@ -1,5 +1,8 @@
-<?php include 'includes/session.php'; ?>
-<?php include 'includes/header.php'; ?>
+<?php
+include 'includes/session.php';
+include 'includes/header.php';
+include '../includes/conn.php';
+?>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -22,26 +25,26 @@
     <!-- Main content -->
     <section class="content">
       <?php
-        if(isset($_SESSION['error'])){
+      if (isset($_SESSION['error'])) {
           echo "
             <div class='alert alert-danger alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
               <h4><i class='icon fa fa-warning'></i> Error!</h4>
-              ".$_SESSION['error']."
+              " . $_SESSION['error'] . "
             </div>
           ";
           unset($_SESSION['error']);
-        }
-        if(isset($_SESSION['success'])){
+      }
+      if (isset($_SESSION['success'])) {
           echo "
             <div class='alert alert-success alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
               <h4><i class='icon fa fa-check'></i> Success!</h4>
-              ".$_SESSION['success']."
+              " . $_SESSION['success'] . "
             </div>
           ";
           unset($_SESSION['success']);
-        }
+      }
       ?>
       <div class="row">
         <div class="col-xs-12">
@@ -61,44 +64,48 @@
                 </thead>
                 <tbody>
                   <?php
-                    $conn = $pdo->open();
+                  include '../includes/conn.php';
+                  
+                  // Check connection
+                  if ($conn->connect_error) {
+                      die("Connection failed: " . $conn->connect_error);
+                  }
 
-                    try{
-                      $stmt = $conn->prepare("SELECT * FROM users WHERE type=:type");
-                      $stmt->execute(['type'=>0]);
-                      foreach($stmt as $row){
-                        $image = (!empty($row['photo'])) ? '../images/'.$row['photo'] : '../images/profile.jpg';
-                        $status = ($row['status']) ? '<span class="label label-success">active</span>' : '<span class="label label-danger">Inactive</span>';
-                        $active = (!$row['status']) ? '<span class="pull-right"><a href="#activate" class="status" data-toggle="modal" data-id="'.$row['id'].'"><i class="fa fa-square-o"></i></a></span>' : '<span class="pull-right"><a href="#inactivate" class="status" data-toggle="modal" data-id="'.$row['id'].'"><i class="fa fa-check-square-o"></i></a></span>';
+                  $sql = "SELECT * FROM users WHERE type = 0";
+                  $result = $conn->query($sql);
 
-                        echo "
+                  if ($result->num_rows > 0) {
+                      while ($row = $result->fetch_assoc()) {
+                          $image = (!empty($row['photo'])) ? '../images/' . $row['photo'] : '../images/profile.jpg';
+                          $status = ($row['status']) ? '<span class="label label-success">active</span>' : '<span class="label label-danger">Inactive</span>';
+                          $active = (!$row['status']) ? '<span class="pull-right"><a href="#activate" class="status" data-toggle="modal" data-id="' . $row['id'] . '"><i class="fa fa-square-o"></i></a></span>' : '<span class="pull-right"><a href="#inactivate" class="status" data-toggle="modal" data-id="' . $row['id'] . '"><i class="fa fa-check-square-o"></i></a></span>';
+
+                          echo "
                           <tr>
                             <td>
-                              <img src='".$image."' height='30px' width='30px'>
-                              <span class='pull-right'><a href='#edit_photo' class='photo' data-toggle='modal' data-id='".$row['id']."'><i class='fa fa-edit'></i></a></span>
+                              <img src='" . $image . "' height='30px' width='30px'>
+                              <span class='pull-right'><a href='#edit_photo' class='photo' data-toggle='modal' data-id='" . $row['id'] . "'><i class='fa fa-edit'></i></a></span>
                             </td>
-                            <td>".$row['email']."</td>
-                            <td>".$row['firstname'].' '.$row['lastname']."</td>
+                            <td>" . $row['email'] . "</td>
+                            <td>" . $row['firstname'] . ' ' . $row['lastname'] . "</td>
                             <td>
-                              ".$status."
-                              ".$active."
+                              " . $status . "
+                              " . $active . "
     
                             </td>
-                            <td>".date('M d, Y', strtotime($row['created_on']))."</td>
+                            <td>" . date('M d, Y', strtotime($row['created_on'])) . "</td>
                             <td>
-                              <a href='cart.php?user=".$row['id']."' class='btn btn-info btn-sm btn-flat'><i class='fa fa-search'></i> Cart</a>
-                              <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
+                              <a href='cart.php?user=" . $row['id'] . "' class='btn btn-info btn-sm btn-flat'><i class='fa fa-search'></i> Cart</a>
                               
                             </td>
                           </tr>
                         ";
                       }
-                    }
-                    catch(PDOException $e){
-                      echo $e->getMessage();
-                    }
+                  } else {
+                      echo "No users found.";
+                  }
 
-                    $pdo->close();
+                  $conn->close();
                   ?>
                 </tbody>
               </table>

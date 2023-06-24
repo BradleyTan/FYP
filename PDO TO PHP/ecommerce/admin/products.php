@@ -61,16 +61,22 @@
                     <select class="form-control input-sm" id="select_category">
                       <option value="0">ALL</option>
                       <?php
-                        $conn = $pdo->open();
-                        $stmt = $conn->prepare("SELECT * FROM category");
-                        $stmt->execute();
-                        foreach($stmt as $crow){
+                        include '../includes/conn.php';
+
+                        if(!$conn){
+                            die("Connection failed: " . mysqli_connect_error());
+                        }
+
+                        $query = "SELECT * FROM category";
+                        $result = mysqli_query($conn, $query);
+                        while($crow = mysqli_fetch_array($result)){
                           $selected = ($crow['id'] == $catid) ? 'selected' : ''; 
                           echo "
                             <option value='".$crow['id']."' ".$selected.">".$crow['name']."</option>
                           ";
                         }
-                        $pdo->close();
+
+                        mysqli_close($conn);
                       ?>
                     </select>
                   </div>
@@ -90,13 +96,17 @@
                 </thead>
                 <tbody>
                   <?php
-                    $conn = $pdo->open();
+                    include '../includes/conn.php';
+
+                    if(!$conn){
+                        die("Connection failed: " . mysqli_connect_error());
+                    }
 
                     try{
                       $now = date('Y-m-d');
-                      $stmt = $conn->prepare("SELECT * FROM products $where");
-                      $stmt->execute();
-                      foreach($stmt as $row){
+                      $query = "SELECT * FROM products $where";
+                      $result = mysqli_query($conn, $query);
+                      while($row = mysqli_fetch_array($result)){
                         $image = (!empty($row['photo'])) ? '../images/'.$row['photo'] : '../images/noimage.jpg';
                         $counter = ($row['date_view'] == $now) ? $row['counter'] : 0;
                         $quantity = $row['products_quantity'];
@@ -121,11 +131,11 @@
                         ";
                       }
                     }
-                    catch(PDOException $e){
+                    catch(Exception $e){
                       echo $e->getMessage();
                     }
 
-                    $pdo->close();
+                    mysqli_close($conn);
                   ?>
                 </tbody>
               </table>

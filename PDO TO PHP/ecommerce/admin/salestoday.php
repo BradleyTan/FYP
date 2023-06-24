@@ -1,5 +1,6 @@
 <?php include 'includes/session.php'; ?>
 <?php include 'includes/header.php'; ?>
+<?php include '../includes/conn.php'; ?>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -48,39 +49,46 @@
                   <th>Full Details</th>
                 </thead>
                 <tbody>
-                  <?php
-                    $conn = $pdo->open();
-                    $date_today = date('Y-m-d');
-                    
-                    try{
-                      $stmt = $conn->prepare("SELECT *, sales.id AS salesid FROM sales LEFT JOIN users ON users.id=sales.user_id WHERE DATE(sales_date) = :date_today ORDER BY sales_date DESC");
-                      $stmt->execute(['date_today'=>$date_today]);
-                      foreach($stmt as $row){
-                        $stmt = $conn->prepare("SELECT * FROM details LEFT JOIN products ON products.id=details.product_id WHERE details.sales_id=:id");
-                        $stmt->execute(['id'=>$row['salesid']]);
-                        $total = 0;
-                        foreach($stmt as $details){
-                          $subtotal = $details['price']*$details['quantity'];
-                          $total += $subtotal;
-                        }
-                        echo "
-                          <tr>
-                            <td class='hidden'></td>
-                            <td>".date('M d, Y', strtotime($row['sales_date']))."</td>
-                            <td>".$row['firstname'].' '.$row['lastname']."</td>
-                            <td>".$row['pay_id']."</td>
-                            <td>RM ".number_format($total, 2)."</td>
-                            <td><button type='button' class='btn btn-info btn-sm btn-flat transact' data-id='".$row['salesid']."'><i class='fa fa-search'></i> View</button></td>
-                          </tr>
-                        ";
-                      }
-                    }
-                    catch(PDOException $e){
-                      echo $e->getMessage();
-                    }
+                <?php
+              include '../includes/conn.php';
+               $date_today = date('Y-m-d');
 
-                    $pdo->close();
-                  ?>
+try {
+    $stmt = $conn->prepare("SELECT *, sales.id AS salesid FROM sales LEFT JOIN users ON users.id=sales.user_id WHERE DATE(sales_date) = ?");
+    $stmt->bind_param('s', $date_today);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    while ($row = $result->fetch_assoc()) {
+        $stmt2 = $conn->prepare("SELECT * FROM details LEFT JOIN products ON products.id=details.product_id WHERE details.sales_id=?");
+        $stmt2->bind_param('i', $row['salesid']);
+        $stmt2->execute();
+        $result2 = $stmt2->get_result();
+        
+        $total = 0;
+        while ($details = $result2->fetch_assoc()) {
+            $subtotal = $details['price'] * $details['quantity'];
+            $total += $subtotal;
+        }
+        
+        echo "
+            <tr>
+                <td class='hidden'></td>
+                <td>".date('M d, Y', strtotime($row['sales_date']))."</td>
+                <td>".$row['firstname'].' '.$row['lastname']."</td>
+                <td>".$row['pay_id']."</td>
+                <td>RM ".number_format($total, 2)."</td>
+                <td><button type='button' class='btn btn-info btn-sm btn-flat transact' data-id='".$row['salesid']."'><i class='fa fa-search'></i> View</button></td>
+            </tr>
+        ";
+    }
+} catch (mysqli_sql_exception $e) {
+    echo $e->getMessage();
+}
+
+$conn->close();
+?>
+
                 </tbody>
               </table>
             </div>

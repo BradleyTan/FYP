@@ -1,35 +1,38 @@
 <?php
-	include 'includes/session.php';
+    include 'includes/session.php';
+    include '../includes/conn.php';
 
-	if(isset($_POST['add'])){
-		$id = $_POST['id'];
-		$product = $_POST['product'];
-		$quantity = $_POST['quantity'];
+    if(isset($_POST['add'])){
+        $id = $_POST['id'];
+        $product = $_POST['product'];
+        $quantity = $_POST['quantity'];
 
-		$conn = $pdo->open();
 
-		$stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM cart WHERE product_id=:id");
-		$stmt->execute(['id'=>$product]);
-		$row = $stmt->fetch();
+        if(!$conn){
+            die("Connection failed: " . mysqli_connect_error());
+        }
 
-		if($row['numrows'] > 0){
-			$_SESSION['error'] = 'Product exist in cart';
-		}
-		else{
-			try{
-				$stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (:user, :product, :quantity)");
-				$stmt->execute(['user'=>$id, 'product'=>$product, 'quantity'=>$quantity]);
+        $query = "SELECT COUNT(*) AS numrows FROM cart WHERE product_id='$product'";
+        $result = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($result);
 
-				$_SESSION['success'] = 'Product added to cart';
-			}
-			catch(PDOException $e){
-				$_SESSION['error'] = $e->getMessage();
-			}
-		}
+        if($row['numrows'] > 0){
+            $_SESSION['error'] = 'Product exists in cart';
+        }
+        else{
+            try{
+                $query = "INSERT INTO cart (user_id, product_id, quantity) VALUES ('$id', '$product', '$quantity')";
+                mysqli_query($conn, $query);
 
-		$pdo->close();
+                $_SESSION['success'] = 'Product added to cart';
+            }
+            catch(Exception $e){
+                $_SESSION['error'] = $e->getMessage();
+            }
+        }
 
-		header('location: cart.php?user='.$id);
-	}
+        mysqli_close($conn);
 
+        header('location: cart.php?user='.$id);
+    }
 ?>
