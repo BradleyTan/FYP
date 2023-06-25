@@ -8,7 +8,7 @@ if (isset($_POST['pay'])) {
     $address = $_POST['address'];
     $date = date('Y-m-d');
 
-    $conn = mysqli_connect("localhost", "root", "", "your_database_name");
+    $conn = mysqli_connect("localhost", "root", "", "ecomm");
 
     if ($conn) {
         $updateUserQuery = "UPDATE users SET street1=?, street2=?, city=?, postcode=?, state=?, country=? WHERE id=?";
