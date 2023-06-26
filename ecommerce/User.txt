@@ -37,4 +37,9 @@ Category: Beverages
 Profile icon:
 menprofileicon.jpg
 
-Address
+Shipping details
+Address1 : 5, Jalan Ayer Keroh
+Address2 : Taman Ayer keroh
+City: Melaka
+Postcode: 75450
+
