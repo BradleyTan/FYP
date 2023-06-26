@@ -16,7 +16,7 @@ Password: &HQFLr%L5zaSrrmu
 Username: bradleytan119@gmail.com
 Password: Zp{snr;U7"}:+~DQ
 
-// Add inside into the database
+// Add inside the database
 Username: horzhenglong@gmail.com
 Password: P'*.Ns+4EYLj:-%D
 
@@ -36,3 +36,5 @@ Category: Beverages
 
 Profile icon:
 menprofileicon.jpg
+
+Address
