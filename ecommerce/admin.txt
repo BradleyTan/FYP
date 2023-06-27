@@ -1,0 +1,30 @@
+Sample data
+
+New Category: Laundry & Household
+breeze.png
+downy.jpg
+
+breeze description
+Breeze is a laundry detergent brand from Unilever with more than 100 years of laundry expertise. 
+Breeze believes taking action, alongside others, to have a positive impact on people’s wellbeing, their communities, and the planet.
+For change to happen, we would need to roll up our sleeves and get dirty. That's why Breeze is changing too. 
+We are using more sustainable, yet powerful ingredients in our formulation and introducting less and better plastics in our packaging, empowering people to change.
+
+Dirt for Good. Tougher on Stains. Kinder to our World.
+
+breeze price : RM 15.00
+
+
+Category: Beverages
+100 plus.png
+
+//Add new user
+Email: bradleytws03@gmail.com
+Password: bradleytws03
+Firstname: Tan 
+Lastname: Wei Shan
+Address: 8, Jalan Ayer Keroh 3, Taman Ayer keroh, 75450, Melaka
+contact_info : 0123346587
+Photo: profile-image.jpeg
+
+
